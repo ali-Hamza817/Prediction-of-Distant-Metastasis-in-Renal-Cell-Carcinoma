@@ -80,15 +80,18 @@ function probBar(label, prob, notes = '') {
    MODEL 1 – CLINICAL
 ══════════════════════════════════════ */
 function fillClinicalDemo() {
-  document.getElementById('c_age').value          = 68;
+  // RCC-SEER-00004: age=62, sex=Male, t_stage=T1(0), n_stage=N0(0),
+  // tumor_size=3.5cm, grade=Grade1(0), histology=Other(3), prior_tx=No, year=2012
+  // Ground truth: metastasis=1 (bone met), survival_months=1.0
+  document.getElementById('c_age').value          = 62;
   document.getElementById('c_sex').value          = 1;
-  document.getElementById('c_t_stage').value      = 3;
-  document.getElementById('c_n_stage').value      = 1;
-  document.getElementById('c_tumor_size').value   = 9.2;
-  document.getElementById('c_grade').value        = 3;
-  document.getElementById('c_histology').value    = 0;
+  document.getElementById('c_t_stage').value      = 0;
+  document.getElementById('c_n_stage').value      = 0;
+  document.getElementById('c_tumor_size').value   = 3.5;
+  document.getElementById('c_grade').value        = 0;
+  document.getElementById('c_histology').value    = 3;
   document.getElementById('c_prior_tx').value     = 0;
-  document.getElementById('c_year').value         = 2019;
+  document.getElementById('c_year').value         = 2012;
 }
 
 async function runClinical() {
@@ -118,27 +121,53 @@ async function runClinical() {
   }
 }
 
+function siteRiskArrow(p) {
+  if (p >= 0.85) return '<span style="color:#ef4444">▲▲ Very High</span>';
+  if (p >= 0.70) return '<span style="color:#f97316">▲ Elevated</span>';
+  if (p >= 0.50) return '<span style="color:#eab308">→ Moderate</span>';
+  return '<span style="color:#22c55e">▼ Lower</span>';
+}
+
 function renderClinicalResult(d) {
   const el = document.getElementById('result-clinical');
   el.classList.remove('hidden');
 
-  const siteEmoji = { lung: '🫁', bone: '🦴', liver: '🫀', brain: '🧠' };
+  const siteEmoji  = { lung: '🫁', bone: '🦴', liver: '🫀', brain: '🧠' };
   const siteProbMap = { lung: d.lung, bone: d.bone, liver: d.liver, brain: d.brain };
 
+  // Relative risk: rank within [0,1] but show as index not absolute probability
+  // The site models are F2-loss trained — raw sigmoid is uncalibrated; display as risk index
   let sitesHTML = Object.entries(siteProbMap).map(([site, p]) => `
     <div class="site-card">
       <div class="site-icon">${siteEmoji[site]}</div>
-      <div class="site-name">${site.charAt(0).toUpperCase()+site.slice(1)} Metastasis</div>
-      <div class="site-prob ${riskCls(p)}">${pctLabel(p)}</div>
+      <div class="site-name">${site.charAt(0).toUpperCase()+site.slice(1)}</div>
+      <div class="site-prob ${riskCls(p)}">${siteRiskArrow(p)}</div>
+      <div style="font-size:11px;color:var(--text3);margin-top:4px;">Index: ${pctLabel(p)}</div>
     </div>`).join('');
 
   el.innerHTML = `
     <div class="result-header">
       <div class="result-title">🏥 Clinical Model — SEER Prediction</div>
-      <div class="risk-badge ${d.risk_class}">${d.risk} · AUROC 0.770</div>
+      <div class="risk-badge ${d.risk_class}">${d.risk}</div>
+    </div>
+    <div class="model-info-chips">
+      <span class="info-chip">AUROC 0.770 on SEER Holdout</span>
+      <span class="info-chip">LightGBM · F2-Weighted Loss</span>
+      <span class="info-chip">36,738 Patients</span>
+      <span class="info-chip">Threshold 0.496</span>
     </div>
     <div class="prob-grid">
-      ${probBar('Overall Metastasis Probability', d.overall, '(F2-optimized threshold)')}
+      ${probBar('Overall Metastasis Risk Score', d.overall, '(F2-optimized)')}
+    </div>
+    <div class="site-section-header">
+      <span>Site-Specific Risk Indices</span>
+      <button class="disclaimer-toggle" onclick="this.parentElement.nextElementSibling.classList.toggle('hidden')" title="What are these indices?">ℹ️ What is this?</button>
+    </div>
+    <div class="site-disclaimer hidden">
+      <div class="disclaimer-box">
+        <strong>⚠️ Scientific Note — Relative Risk Index, Not Absolute Probability</strong>
+        <p>These site-specific scores are <em>not</em> calibrated clinical probabilities. The site-specific models were trained with an asymmetric F2-loss (False Negatives penalised 4× more than False Positives) combined with SMOTE oversampling — a design that maximises sensitivity (Recall ≥ 95%) but produces uncalibrated raw sigmoid scores. On the SEER holdout, site-specific Precision is 2–4% at &gt;95% Recall, meaning the model flags almost everyone as high-risk to avoid any missed case. The index reflects <strong>relative risk rank</strong> within the population, not an absolute "X% chance of metastasis." Use the Overall Risk Score and the fused output for quantitative interpretation.</p>
+      </div>
     </div>
     <div class="site-grid">${sitesHTML}</div>
     <p style="margin-top:16px; font-size:12px; color:var(--text3)">
@@ -318,16 +347,16 @@ function renderImagingResult(d) {
    3-MODALITY FUSION
 ══════════════════════════════════════ */
 function fillFusionDemo() {
-  // Clinical
-  document.getElementById('fc_age').value        = 68;
+  // Clinical: RCC-SEER-00004 (real patient, metastasis=1, bone_met=1)
+  document.getElementById('fc_age').value        = 62;
   document.getElementById('fc_sex').value        = 1;
-  document.getElementById('fc_t_stage').value    = 3;
-  document.getElementById('fc_n_stage').value    = 1;
-  document.getElementById('fc_tumor_size').value = 9.2;
-  document.getElementById('fc_grade').value      = 3;
-  document.getElementById('fc_histology').value  = 0;
+  document.getElementById('fc_t_stage').value    = 0;
+  document.getElementById('fc_n_stage').value    = 0;
+  document.getElementById('fc_tumor_size').value = 3.5;
+  document.getElementById('fc_grade').value      = 0;
+  document.getElementById('fc_histology').value  = 3;
   document.getElementById('fc_prior_tx').value   = 0;
-  document.getElementById('fc_year').value       = 2019;
+  document.getElementById('fc_year').value       = 2012;
 
   // Genomic
   Object.entries(GENOMIC_DEMO).forEach(([gene, val]) => {
@@ -390,21 +419,27 @@ function renderFusionResult(d) {
   el.innerHTML = `
     <div class="result-header">
       <div class="result-title">⚗️ 3-Modality Fusion — Final Verdict</div>
-      <div class="risk-badge ${d.final_risk_class}">⬡ ${d.final_verdict} · Fusion B (AUROC 0.797)</div>
+      <div class="risk-badge ${d.final_risk_class}">⬡ ${d.final_verdict}</div>
+    </div>
+    <div class="model-info-chips">
+      <span class="info-chip">★ Best AUROC 0.797</span>
+      <span class="info-chip">Fusion B: F2-Weighted Average</span>
+      <span class="info-chip">126-patient Strict Inner Join</span>
+      <span class="info-chip">Zero Data Leakage</span>
     </div>
 
     <div class="prob-grid">
-      <h4 style="font-size:13px; color:var(--text3); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px;">Base Model Probabilities</h4>
+      <h4 style="font-size:13px; color:var(--text3); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px;">Base Model Risk Scores</h4>
       ${probBar('🏥 Model 1: Clinical (SEER)', d.model1_overall, 'AUROC 0.770')}
       ${probBar('🧬 Model 2: Genomic (TCGA)', d.model2, 'AUROC 0.738 · Recall 94.4%')}
       ${probBar('🫁 Model 3: Imaging (TCGA)', d.model3, 'AUROC 0.638 · Recall 100%')}
     </div>
 
     <div class="fusion-result-grid" style="margin-top:28px;">
-      <div style="grid-column:1/-1; font-size:13px; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">Final Fused Output (Optimized)</div>
+      <div style="grid-column:1/-1; font-size:13px; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">Final Fused Output (F2-Optimized)</div>
 
       <div class="premium-fusion-card winner" style="grid-column:1/-1;">
-        <div class="fusion-card-label" style="color:var(--gold);">Fusion Strategy B · Best AUROC</div>
+        <div class="fusion-card-label" style="color:var(--gold);">Fusion Strategy B · Best AUROC 0.797</div>
         <div class="fusion-card-name" style="color:white; font-size:16px;">F2-Weighted Average</div>
         <div class="fusion-card-prob ${riskCls(d.fusion_b_f2_weighted)}" style="font-size:42px;">${pctLabel(d.fusion_b_f2_weighted)}</div>
         <div class="fusion-winner-tag" style="background:var(--gold); color:black;">★ Final Decision (Highest Recall/F2)</div>
@@ -430,13 +465,23 @@ function renderFusionResult(d) {
     </details>
 
     <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--border);">
-      <h4 style="font-size:13px; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:12px;">Site-Specific Risks (Clinical Modality)</h4>
+      <div class="site-section-header">
+        <span>Site-Specific Risk Indices (Clinical Modality)</span>
+        <button class="disclaimer-toggle" onclick="this.parentElement.nextElementSibling.classList.toggle('hidden')" title="What are these indices?">ℹ️ What is this?</button>
+      </div>
+      <div class="site-disclaimer hidden">
+        <div class="disclaimer-box">
+          <strong>⚠️ Scientific Note — Relative Risk Index, Not Absolute Probability</strong>
+          <p>Site-specific scores are <em>not</em> calibrated clinical probabilities. They are relative risk indices derived from an asymmetric F2-loss model (FN penalised 4×) optimised for maximum sensitivity. Use the Fused Output above for quantitative risk interpretation.</p>
+        </div>
+      </div>
       <div class="site-grid">
         ${[['🫁','Lung',d.model1_lung],['🦴','Bone',d.model1_bone],['🫀','Liver',d.model1_liver],['🧠','Brain',d.model1_brain]].map(([icon,name,p])=>`
           <div class="site-card">
             <div class="site-icon">${icon}</div>
             <div class="site-name">${name}</div>
-            <div class="site-prob ${riskCls(p)}">${pctLabel(p)}</div>
+            <div class="site-prob ${riskCls(p)}">${siteRiskArrow(p)}</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:4px;">Index: ${pctLabel(p)}</div>
           </div>`).join('')}
       </div>
     </div>
