@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RCC Metastasis Predictor | 3-Modality AI Framework</title>
+  <meta name="description" content="State-of-the-art AI framework for Renal Cell Carcinoma metastasis prediction using clinical, genomic, and imaging data fusion." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css?v=4" />
+</head>
+<body>
+
+<!-- ═══════════ HERO HEADER ═══════════ -->
+<header class="hero">
+  <div class="hero-glow"></div>
+  <nav class="nav">
+    <div class="nav-brand">
+      <div class="nav-logo">⬡</div>
+      <span class="nav-title">RCC<span class="accent">·AI</span></span>
+    </div>
+    <div class="nav-pills">
+      <a class="pill active" data-tab="clinical" href="#" onclick="switchTab('clinical', event)">Clinical</a>
+      <a class="pill" data-tab="genomic" href="#" onclick="switchTab('genomic', event)">Genomic</a>
+      <a class="pill" data-tab="imaging" href="#" onclick="switchTab('imaging', event)">Imaging</a>
+      <a class="pill pill-gold" data-tab="fusion" href="#" onclick="switchTab('fusion', event)">3-Modality Fusion</a>
+    </div>
+  </nav>
+
+  <div class="hero-content">
+    <div class="hero-badge">Masters Research · Q1 Publication Ready</div>
+    <h1 class="hero-title">Renal Cell Carcinoma<br/><span class="gradient-text">Metastasis Predictor</span></h1>
+    <p class="hero-subtitle">
+      First-of-its-kind 3-Modality AI framework fusing Clinical (SEER), Genomic (TCGA RNA-Seq), and Imaging (3D PyRadiomics) data — achieving <strong>AUROC 0.797</strong> with <strong>94.4% Recall</strong>.
+    </p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-val">0.797</span><span class="stat-lbl">Best AUROC</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="stat-val">94.4%</span><span class="stat-lbl">Recall (Genomic)</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="stat-val">3</span><span class="stat-lbl">Modalities Fused</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="stat-val">4×</span><span class="stat-lbl">FN Penalty Weight</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════ TABS ═══════════ -->
+<main class="main">
+
+  <!-- ── TAB: CLINICAL ── -->
+  <section id="tab-clinical" class="tab-panel active">
+    <div class="panel-header">
+      <div class="panel-icon">🏥</div>
+      <div>
+        <h2 class="panel-title">Model 1 · Clinical Risk Predictor</h2>
+        <p class="panel-desc">Trained on <strong>36,738 SEER patients</strong>. Predicts overall metastasis risk and site-specific risks for lung, bone, liver, and brain.</p>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3 class="card-title">Patient Demographics</h3>
+        <div class="form-group">
+          <label for="c_age">Age at Diagnosis</label>
+          <input id="c_age" type="number" min="18" max="100" value="65" placeholder="e.g. 65" />
+        </div>
+        <div class="form-group">
+          <label for="c_sex">Sex</label>
+          <select id="c_sex">
+            <option value="1">Male</option>
+            <option value="0">Female</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="c_year">Year of Diagnosis</label>
+          <input id="c_year" type="number" min="2010" max="2025" value="2018" />
+        </div>
+        <div class="form-group">
+          <label for="c_prior_tx">Prior Treatment</label>
+          <select id="c_prior_tx">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">Tumour Staging</h3>
+        <div class="form-group">
+          <label for="c_t_stage">T Stage (AJCC)</label>
+          <select id="c_t_stage">
+            <option value="0">T1 – Tumour ≤7 cm, confined to kidney</option>
+            <option value="1">T1a – ≤4 cm</option>
+            <option value="2">T2 – >7 cm, confined to kidney</option>
+            <option value="3" selected>T3 – Extends to veins/perinephric</option>
+            <option value="4">T4 – Invades beyond Gerota fascia</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="c_n_stage">N Stage (Nodes)</label>
+          <select id="c_n_stage">
+            <option value="0">N0 – No regional lymph node metastasis</option>
+            <option value="1">N1 – Regional lymph node metastasis</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="c_tumor_size">Tumour Size (cm)</label>
+          <input id="c_tumor_size" type="number" step="0.1" min="0.5" max="30" value="7.5" />
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">Histopathology</h3>
+        <div class="form-group">
+          <label for="c_grade">Tumour Grade (Fuhrman)</label>
+          <select id="c_grade">
+            <option value="0">Grade 1 – Well differentiated</option>
+            <option value="1">Grade 2 – Moderately differentiated</option>
+            <option value="2">Grade 3 – Poorly differentiated</option>
+            <option value="3" selected>Grade 3–4 (High Grade)</option>
+            <option value="4">Grade 4 – Undifferentiated / Sarcomatoid</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="c_histology">Histological Subtype</label>
+          <select id="c_histology">
+            <option value="0">Clear Cell RCC (ccRCC)</option>
+            <option value="1">Papillary RCC</option>
+            <option value="2">Chromophobe RCC</option>
+            <option value="3">Other / Unclassified</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="predict-bar">
+      <button class="btn-predict" onclick="runClinical()">
+        <span class="btn-icon">⚡</span> Run Clinical Prediction
+      </button>
+      <button class="btn-demo" onclick="fillClinicalDemo()">Load Demo Patient</button>
+    </div>
+
+    <div id="result-clinical" class="result-panel hidden"></div>
+  </section>
+
+  <section id="tab-genomic" class="tab-panel hidden">
+    <div class="panel-header">
+      <div class="panel-icon">🧬</div>
+      <div>
+        <h2 class="panel-title">Model 2 · Genomic Transcriptomic Predictor</h2>
+        <p class="panel-desc">Trained on <strong>418 TCGA-KIRC RNA-Seq patients</strong>. Uses 54 variance-filtered genes selected via ANOVA F-test. Achieved <strong>94.4% Recall</strong>.</p>
+      </div>
+    </div>
+
+    <!-- Mode Switcher -->
+    <div class="mode-switcher">
+      <button class="mode-btn active" id="geno-mode-file" onclick="setMode('genomic','file')">
+        <span>📂</span> Upload Expression File <span class="mode-badge recommended">Recommended</span>
+      </button>
+      <button class="mode-btn" id="geno-mode-manual" onclick="setMode('genomic','manual')">
+        <span>⌨️</span> Enter Values Manually
+      </button>
+    </div>
+
+    <!-- FILE UPLOAD MODE -->
+    <div id="geno-mode-file-panel">
+      <div class="upload-card">
+        <div class="upload-formats">
+          <div class="format-chip">CSV</div>
+          <div class="format-chip">TSV</div>
+          <div class="format-chip">RNA-Seq Output</div>
+        </div>
+        <div class="upload-zone" id="geno-dropzone" onclick="document.getElementById('geno-file-input').click()" ondragover="dragOver(event)" ondrop="dropFile(event,'geno-file-input','geno-dropzone')">
+          <div class="upload-icon">🧬</div>
+          <div class="upload-title">Drop RNA-Seq Expression File Here</div>
+          <div class="upload-sub">or click to browse — accepts CSV / TSV</div>
+          <input type="file" id="geno-file-input" accept=".csv,.tsv,.txt" style="display:none" onchange="handleFileSelect(this,'geno-dropzone','geno-filename')" />
+        </div>
+        <div id="geno-filename" class="file-name-display hidden"></div>
+
+        <div class="upload-formats-info">
+          <div class="format-info-item">
+            <strong>Format A (Recommended) — 2-column CSV:</strong>
+            <code>gene, expression_value_TPM</code>
+            One gene per row. Standard output from featureCounts, STAR, Salmon.
+          </div>
+          <div class="format-info-item">
+            <strong>Format B — Wide-format CSV:</strong>
+            Gene names as column headers, expression values in first row.
+          </div>
+        </div>
+
+        <div class="upload-actions">
+          <a href="/static/sample_gene_expression.csv" download class="btn-download">
+            ⬇ Download Sample File (54 genes, demo values)
+          </a>
+        </div>
+      </div>
+
+      <div class="predict-bar">
+        <button class="btn-predict" onclick="runGenomicFile()">
+          <span class="btn-icon">⚡</span> Run Genomic Prediction
+        </button>
+      </div>
+    </div>
+
+    <!-- MANUAL MODE -->
+    <div id="geno-mode-manual-panel" class="hidden">
+      <div class="card full-card">
+        <div class="gene-instructions">
+          <div class="instruction-box">
+            <div class="inst-icon">📋</div>
+            <div>
+              <strong>Manual gene expression entry:</strong>
+              <p>Enter <strong>normalized RNA-Seq expression values</strong> (RSEM/TPM) for each gene. Typical range 0–20. Use the Demo button to auto-fill realistic high-risk values.</p>
+            </div>
+          </div>
+        </div>
+        <div id="gene-inputs" class="gene-grid">
+          {% for gene in m2_genes %}
+          <div class="gene-item">
+            <label class="gene-label">{{ gene }}</label>
+            <input class="gene-input" id="g_{{ gene }}" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="predict-bar">
+        <button class="btn-predict" onclick="runGenomic()">
+          <span class="btn-icon">⚡</span> Run Genomic Prediction
+        </button>
+        <button class="btn-demo" onclick="fillGenomicDemo()">Load Demo Values</button>
+        <button class="btn-clear" onclick="clearGenomic()">Clear All</button>
+      </div>
+    </div>
+
+    <div id="result-genomic" class="result-panel hidden"></div>
+  </section>
+
+  <!-- ── TAB: IMAGING ── -->
+  <section id="tab-imaging" class="tab-panel hidden">
+    <div class="panel-header">
+      <div class="panel-icon">🫁</div>
+      <div>
+        <h2 class="panel-title">Model 3 · 3D Radiomic Imaging Predictor</h2>
+        <p class="panel-desc">Trained on <strong>TCGA-KIRC preoperative CT/MRI scans</strong>. Uses 49 PyRadiomics shape, intensity &amp; texture features extracted from tumour segmentation.</p>
+      </div>
+    </div>
+
+    <!-- Mode Switcher -->
+    <div class="mode-switcher">
+      <button class="mode-btn active" id="img-mode-nifti" onclick="setMode('imaging','nifti')">
+        <span>🫁</span> Upload CT Scan (NIfTI) <span class="mode-badge recommended">Real World</span>
+      </button>
+      <button class="mode-btn" id="img-mode-csv" onclick="setMode('imaging','csv')">
+        <span>📊</span> Upload Radiomics CSV
+      </button>
+      <button class="mode-btn" id="img-mode-manual" onclick="setMode('imaging','manual')">
+        <span>⌨️</span> Manual Entry
+      </button>
+    </div>
+
+    <!-- NIFTI UPLOAD MODE -->
+    <div id="img-mode-nifti-panel">
+      <div class="upload-card">
+        <div class="workflow-steps">
+          <div class="wf-step"><div class="wf-num">1</div><div class="wf-text"><strong>Upload CT Scan</strong><br/>Pre-operative NIfTI (.nii.gz)</div></div>
+          <div class="wf-arrow">→</div>
+          <div class="wf-step"><div class="wf-num">2</div><div class="wf-text"><strong>Upload Tumour Mask</strong><br/>Segmentation NIfTI (.nii.gz)</div></div>
+          <div class="wf-arrow">→</div>
+          <div class="wf-step"><div class="wf-num">3</div><div class="wf-text"><strong>Auto-extract Features</strong><br/>PyRadiomics runs server-side</div></div>
+          <div class="wf-arrow">→</div>
+          <div class="wf-step"><div class="wf-num">4</div><div class="wf-text"><strong>AI Prediction</strong><br/>XGBoost Model 3</div></div>
+        </div>
+
+        <div class="upload-pair">
+          <div class="upload-half">
+            <div class="upload-zone" id="ct-dropzone" onclick="document.getElementById('ct-file-input').click()" ondragover="dragOver(event)" ondrop="dropFile(event,'ct-file-input','ct-dropzone')">
+              <div class="upload-icon">🩻</div>
+              <div class="upload-title">CT Scan Image</div>
+              <div class="upload-sub">.nii or .nii.gz</div>
+              <input type="file" id="ct-file-input" accept=".nii,.nii.gz,.gz" style="display:none" onchange="handleFileSelect(this,'ct-dropzone','ct-filename')" />
+            </div>
+            <div id="ct-filename" class="file-name-display hidden"></div>
+          </div>
+          <div class="upload-half">
+            <div class="upload-zone" id="mask-dropzone" onclick="document.getElementById('mask-file-input').click()" ondragover="dragOver(event)" ondrop="dropFile(event,'mask-file-input','mask-dropzone')">
+              <div class="upload-icon">🎭</div>
+              <div class="upload-title">Tumour Segmentation Mask</div>
+              <div class="upload-sub">.nii or .nii.gz (binary mask)</div>
+              <input type="file" id="mask-file-input" accept=".nii,.nii.gz,.gz" style="display:none" onchange="handleFileSelect(this,'mask-dropzone','mask-filename')" />
+            </div>
+            <div id="mask-filename" class="file-name-display hidden"></div>
+          </div>
+        </div>
+
+        <div class="upload-formats-info">
+          <div class="format-info-item">
+            <strong>🩻 CT Scan:</strong> Pre-operative axial CT in NIfTI format. Can be exported from DICOM using dcm2niix.
+          </div>
+          <div class="format-info-item">
+            <strong>🎭 Tumour Mask:</strong> Binary segmentation where voxel=1 is tumour, voxel=0 is background. Compatible with nnUNet, TotalSegmentator, or manual ITK-SNAP segmentation.
+          </div>
+        </div>
+
+        <div class="upload-note">
+          ⚙️ PyRadiomics v3.1 will extract <strong>49 radiomic features</strong> from the tumour region. Processing typically takes 10–60 seconds depending on scan size.
+        </div>
+      </div>
+
+      <div class="predict-bar">
+        <button class="btn-predict" onclick="runImagingNifti()">
+          <span class="btn-icon">⚡</span> Extract Features &amp; Predict
+        </button>
+      </div>
+    </div>
+
+    <!-- CSV UPLOAD MODE -->
+    <div id="img-mode-csv-panel" class="hidden">
+      <div class="upload-card">
+        <div class="upload-zone" id="rad-dropzone" onclick="document.getElementById('rad-file-input').click()" ondragover="dragOver(event)" ondrop="dropFile(event,'rad-file-input','rad-dropzone')">
+          <div class="upload-icon">📊</div>
+          <div class="upload-title">Drop PyRadiomics Output CSV Here</div>
+          <div class="upload-sub">or click to browse — accepts CSV</div>
+          <input type="file" id="rad-file-input" accept=".csv,.tsv,.txt" style="display:none" onchange="handleFileSelect(this,'rad-dropzone','rad-filename')" />
+        </div>
+        <div id="rad-filename" class="file-name-display hidden"></div>
+
+        <div class="upload-formats-info">
+          <div class="format-info-item">
+            <strong>Format A (Recommended) — 2-column CSV:</strong>
+            <code>feature, value</code>
+            Each row is one PyRadiomics feature.
+          </div>
+          <div class="format-info-item">
+            <strong>Format B — PyRadiomics batch output:</strong>
+            Wide-format with feature names as column headers.
+          </div>
+        </div>
+        <div class="upload-actions">
+          <a href="/static/sample_radiomics_features.csv" download class="btn-download">
+            ⬇ Download Sample File (49 features, real TCGA-KIRC patient)
+          </a>
+        </div>
+      </div>
+      <div class="predict-bar">
+        <button class="btn-predict" onclick="runImagingCSV()">
+          <span class="btn-icon">⚡</span> Run Imaging Prediction
+        </button>
+      </div>
+    </div>
+
+    <!-- MANUAL MODE -->
+    <div id="img-mode-manual-panel" class="hidden">
+      <div class="card full-card">
+        <div class="gene-instructions">
+          <div class="instruction-box">
+            <div class="inst-icon">🔬</div>
+            <div>
+              <strong>Manual PyRadiomics feature entry:</strong>
+              <p>Enter the 49 radiomic features extracted from your tumour segmentation. Use the Demo button to load real values from a TCGA-KIRC patient with confirmed metastasis.</p>
+            </div>
+          </div>
+        </div>
+        <div id="radiomics-inputs" class="gene-grid">
+          {% for feat in m3_features %}
+          <div class="gene-item">
+            <label class="gene-label" title="{{ feat }}">{{ feat.replace('original_', '').replace('_', ' ') }}</label>
+            <input class="gene-input" id="r_{{ feat }}" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="predict-bar">
+        <button class="btn-predict" onclick="runImaging()">
+          <span class="btn-icon">⚡</span> Run Imaging Prediction
+        </button>
+        <button class="btn-demo" onclick="fillImagingDemo()">Load Demo Patient Scan</button>
+        <button class="btn-clear" onclick="clearImaging()">Clear All</button>
+      </div>
+    </div>
+
+    <div id="result-imaging" class="result-panel hidden"></div>
+  </section>
+
+  <!-- ── TAB: FUSION ── -->
+  <section id="tab-fusion" class="tab-panel hidden">
+    <div class="panel-header">
+      <div class="panel-icon">⚗️</div>
+      <div>
+        <h2 class="panel-title">3-Modality Late Fusion · Final Prediction</h2>
+        <p class="panel-desc">Combines all three modalities via F2-Weighted and Cascade Max fusion. This is the final, publishable framework achieving <strong>AUROC 0.797</strong>.</p>
+      </div>
+    </div>
+
+    <div class="fusion-tabs">
+      <button class="ftab active" onclick="activeFusionTab('f-clinical', event)">🏥 Clinical</button>
+      <button class="ftab" onclick="activeFusionTab('f-genomic', event)">🧬 Genomic</button>
+      <button class="ftab" onclick="activeFusionTab('f-imaging', event)">🫁 Imaging</button>
+    </div>
+
+    <!-- Fusion: Clinical -->
+    <div id="f-clinical" class="f-panel">
+      <div class="card-grid">
+        <div class="card">
+          <h3 class="card-title">Patient Demographics</h3>
+          <div class="form-group"><label>Age</label><input id="fc_age" type="number" value="65" /></div>
+          <div class="form-group"><label>Sex</label><select id="fc_sex"><option value="1">Male</option><option value="0">Female</option></select></div>
+          <div class="form-group"><label>Year of Diagnosis</label><input id="fc_year" type="number" value="2018" /></div>
+          <div class="form-group"><label>Prior Treatment</label><select id="fc_prior_tx"><option value="0">No</option><option value="1">Yes</option></select></div>
+        </div>
+        <div class="card">
+          <h3 class="card-title">Tumour Staging</h3>
+          <div class="form-group"><label>T Stage</label><select id="fc_t_stage"><option value="0">T1</option><option value="1">T1a</option><option value="2">T2</option><option value="3" selected>T3</option><option value="4">T4</option></select></div>
+          <div class="form-group"><label>N Stage</label><select id="fc_n_stage"><option value="0">N0</option><option value="1">N1</option></select></div>
+          <div class="form-group"><label>Tumour Size (cm)</label><input id="fc_tumor_size" type="number" step="0.1" value="7.5" /></div>
+        </div>
+        <div class="card">
+          <h3 class="card-title">Histopathology</h3>
+          <div class="form-group"><label>Grade</label><select id="fc_grade"><option value="0">Grade 1</option><option value="1">Grade 2</option><option value="2">Grade 3</option><option value="3" selected>Grade 3-4</option><option value="4">Grade 4</option></select></div>
+          <div class="form-group"><label>Histological Subtype</label><select id="fc_histology"><option value="0">Clear Cell RCC</option><option value="1">Papillary</option><option value="2">Chromophobe</option><option value="3">Other</option></select></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fusion: Genomic -->
+    <div id="f-genomic" class="f-panel hidden">
+      <div class="card full-card">
+        <p class="card-title">Gene Expression (54 ANOVA-Selected Genes) — use Demo to auto-fill</p>
+        <div id="fusion-gene-inputs" class="gene-grid">
+          {% for gene in m2_genes %}
+          <div class="gene-item">
+            <label class="gene-label">{{ gene }}</label>
+            <input class="gene-input" id="fg_{{ gene }}" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Fusion: Imaging -->
+    <div id="f-imaging" class="f-panel hidden">
+      <div class="card full-card">
+        <p class="card-title">PyRadiomics Features (49 Shape/Texture Features) — use Demo to auto-fill</p>
+        <div id="fusion-radiomics-inputs" class="gene-grid">
+          {% for feat in m3_features %}
+          <div class="gene-item">
+            <label class="gene-label" title="{{ feat }}">{{ feat.replace('original_', '').replace('_', ' ') }}</label>
+            <input class="gene-input" id="fr_{{ feat }}" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="predict-bar">
+      <button class="btn-predict btn-gold" onclick="runFusion()">
+        <span class="btn-icon">🔮</span> Run 3-Modality Fusion Prediction
+      </button>
+      <button class="btn-demo" onclick="fillFusionDemo()">Load Demo Patient (All Modalities)</button>
+    </div>
+
+    <div id="result-fusion" class="result-panel hidden"></div>
+  </section>
+
+</main>
+
+<!-- ═══════════ FOOTER INFO ═══════════ -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-block">
+      <h4>Model Performance</h4>
+      <table class="footer-table">
+        <tr><th>Modality</th><th>AUROC</th><th>Recall</th><th>F2</th></tr>
+        <tr><td>Clinical (SEER)</td><td>0.770</td><td>62.1%</td><td>0.378</td></tr>
+        <tr><td>Genomic (TCGA)</td><td>0.738</td><td>94.4%</td><td>0.574</td></tr>
+        <tr><td>Imaging (TCGA)</td><td>0.638</td><td>100%</td><td>0.479</td></tr>
+        <tr class="highlight-row"><td>Fusion B (F2-Weighted)</td><td>0.797</td><td>88.9%</td><td>0.593</td></tr>
+        <tr class="highlight-row"><td>Fusion D (Cascade Max)</td><td>0.738</td><td>66.7%</td><td>0.566</td></tr>
+      </table>
+    </div>
+    <div class="footer-block">
+      <h4>Datasets Used</h4>
+      <ul class="footer-list">
+        <li>🏥 <strong>SEER</strong> — 36,738 RCC patients (Clinical)</li>
+        <li>🧬 <strong>TCGA-KIRC</strong> — 418 RNA-Seq samples (Genomic)</li>
+        <li>🫁 <strong>TCIA / TCGA-KIRC</strong> — 159 preoperative CTs (Imaging)</li>
+        <li>🔗 <strong>Fusion Cohort</strong> — 126-patient inner join</li>
+      </ul>
+    </div>
+    <div class="footer-block">
+      <h4>Clinical Note</h4>
+      <p class="footer-note">This tool is for <strong>research and academic purposes only</strong>. All predictions are generated by models trained on publicly available datasets. The F2-optimized framework penalizes False Negatives 4× more than False Positives, aligned with the clinical priority of <em>never missing metastasis</em>. Not for clinical diagnosis.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Loading Overlay -->
+<div id="loading" class="loading-overlay" style="display:none">
+  <div class="spinner"></div>
+  <p>Running AI inference…</p>
+</div>
+
+<script src="/static/app.js?v=3"></script>
+</body>
+</html>

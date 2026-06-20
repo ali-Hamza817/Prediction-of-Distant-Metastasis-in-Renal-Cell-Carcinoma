@@ -1,0 +1,49 @@
+
+If you use this tool please cite: https://pubs.rsna.org/doi/10.1148/ryai.230024
+
+Using 'fast' option: resampling to lower resolution (3mm)
+Downloading model for Task 297 ...
+Downloading:   0%|          | 0.00/135M [00:00<?, ?B/s]Downloading:   0%|          | 393k/135M [00:00<00:37, 3.62MB/s]Downloading:   3%|▎         | 3.54M/135M [00:00<00:06, 19.3MB/s]Downloading:   6%|▌         | 8.39M/135M [00:00<00:04, 30.9MB/s]Downloading:  11%|█         | 14.7M/135M [00:00<00:03, 40.0MB/s]Downloading:  17%|█▋        | 23.2M/135M [00:00<00:02, 54.9MB/s]Downloading:  24%|██▎       | 31.9M/135M [00:00<00:01, 65.0MB/s]Downloading:  28%|██▊       | 38.5M/135M [00:00<00:01, 61.2MB/s]Downloading:  34%|███▎      | 45.6M/135M [00:00<00:01, 63.9MB/s]Downloading:  39%|███▊      | 52.2M/135M [00:00<00:01, 62.8MB/s]Downloading:  43%|████▎     | 58.6M/135M [00:01<00:01, 62.4MB/s]Downloading:  48%|████▊     | 64.9M/135M [00:01<00:01, 62.0MB/s]Downloading:  53%|█████▎    | 71.2M/135M [00:01<00:01, 57.6MB/s]Downloading:  57%|█████▋    | 77.1M/135M [00:01<00:01, 52.8MB/s]Downloading:  61%|██████    | 82.6M/135M [00:01<00:01, 50.0MB/s]Downloading:  65%|██████▍   | 87.7M/135M [00:01<00:00, 48.2MB/s]Downloading:  68%|██████▊   | 92.7M/135M [00:01<00:00, 47.6MB/s]Downloading:  72%|███████▏  | 97.5M/135M [00:01<00:00, 46.5MB/s]Downloading:  76%|███████▌  | 102M/135M [00:02<00:00, 46.3MB/s] Downloading:  79%|███████▉  | 107M/135M [00:02<00:00, 46.1MB/s]Downloading:  82%|████████▏ | 112M/135M [00:02<00:00, 45.9MB/s]Downloading:  86%|████████▌ | 116M/135M [00:03<00:01, 11.5MB/s]Downloading:  88%|████████▊ | 120M/135M [00:03<00:01, 10.7MB/s]Downloading:  90%|█████████ | 122M/135M [00:03<00:01, 11.7MB/s]Downloading:  93%|█████████▎| 126M/135M [00:04<00:00, 13.5MB/s]Downloading:  95%|█████████▍| 128M/135M [00:04<00:00, 12.0MB/s]Downloading:  97%|█████████▋| 131M/135M [00:04<00:00, 14.3MB/s]Downloading:  99%|█████████▉| 134M/135M [00:04<00:00, 16.6MB/s]Downloading: 100%|██████████| 135M/135M [00:04<00:00, 29.6MB/s]
+Download finished. Extracting...
+Generating rough segmentation for cropping...
+Downloading model for Task 298 ...
+Downloading:   0%|          | 0.00/135M [00:00<?, ?B/s]Downloading:   0%|          | 393k/135M [00:00<00:37, 3.54MB/s]Downloading:   3%|▎         | 3.54M/135M [00:00<00:06, 19.2MB/s]Downloading:   8%|▊         | 10.5M/135M [00:00<00:03, 38.7MB/s]Downloading:  11%|█         | 14.3M/135M [00:00<00:04, 24.8MB/s]Downloading:  13%|█▎        | 17.3M/135M [00:00<00:04, 25.7MB/s]Downloading:  15%|█▍        | 20.2M/135M [00:00<00:04, 26.3MB/s]Downloading:  17%|█▋        | 23.1M/135M [00:01<00:06, 17.7MB/s]Downloading:  19%|█▉        | 25.8M/135M [00:01<00:05, 19.5MB/s]Downloading:  21%|██        | 28.3M/135M [00:01<00:05, 20.6MB/s]Downloading:  23%|██▎       | 31.3M/135M [00:01<00:04, 22.6MB/s]Downloading:  25%|██▌       | 33.9M/135M [00:01<00:06, 16.2MB/s]Downloading:  27%|██▋       | 36.7M/135M [00:01<00:05, 17.9MB/s]Downloading:  30%|███       | 40.5M/135M [00:01<00:04, 22.2MB/s]Downloading:  32%|███▏      | 43.3M/135M [00:02<00:05, 17.3MB/s]Downloading:  35%|███▍      | 46.9M/135M [00:02<00:05, 15.8MB/s]Downloading:  36%|███▋      | 48.9M/135M [00:02<00:06, 13.8MB/s]Downloading:  39%|███▉      | 52.6M/135M [00:02<00:05, 15.9MB/s]Downloading:  40%|████      | 54.4M/135M [00:03<00:06, 12.4MB/s]Downloading:  42%|████▏     | 56.0M/135M [00:03<00:06, 11.9MB/s]Downloading:  43%|████▎     | 57.7M/135M [00:03<00:06, 12.7MB/s]Downloading:  44%|████▍     | 59.8M/135M [00:03<00:05, 14.3MB/s]Downloading:  47%|████▋     | 63.0M/135M [00:03<00:05, 13.2MB/s]Downloading:  51%|█████     | 68.4M/135M [00:03<00:03, 18.1MB/s]Downloading:  55%|█████▍    | 73.5M/135M [00:04<00:03, 18.8MB/s]Downloading:  56%|█████▌    | 75.8M/135M [00:04<00:03, 19.2MB/s]Downloading:  58%|█████▊    | 77.9M/135M [00:04<00:04, 12.6MB/s]Downloading:  60%|█████▉    | 80.6M/135M [00:04<00:03, 13.7MB/s]Downloading:  62%|██████▏   | 84.0M/135M [00:05<00:03, 13.1MB/s]Downloading:  63%|██████▎   | 85.6M/135M [00:05<00:03, 13.5MB/s]Downloading:  65%|██████▍   | 87.2M/135M [00:05<00:04, 11.8MB/s]Downloading:  66%|██████▌   | 88.5M/135M [00:05<00:04, 10.6MB/s]Downloading:  67%|██████▋   | 90.0M/135M [00:05<00:03, 11.5MB/s]Downloading:  68%|██████▊   | 91.6M/135M [00:05<00:03, 12.4MB/s]Downloading:  69%|██████▉   | 93.2M/135M [00:05<00:03, 13.1MB/s]Downloading:  70%|███████   | 94.6M/135M [00:06<00:04, 8.99MB/s]Downloading:  71%|███████   | 95.8M/135M [00:06<00:05, 7.02MB/s]Downloading:  72%|███████▏  | 96.9M/135M [00:06<00:06, 6.27MB/s]Downloading:  73%|███████▎  | 97.8M/135M [00:06<00:05, 6.24MB/s]Downloading:  74%|███████▍  | 99.7M/135M [00:06<00:04, 8.60MB/s]Downloading:  75%|███████▌  | 101M/135M [00:07<00:03, 10.2MB/s] Downloading:  77%|███████▋  | 104M/135M [00:07<00:02, 13.7MB/s]Downloading:  78%|███████▊  | 106M/135M [00:07<00:02, 10.8MB/s]Downloading:  80%|████████  | 108M/135M [00:07<00:02, 11.1MB/s]Downloading:  81%|████████▏ | 110M/135M [00:07<00:02, 10.2MB/s]Downloading:  84%|████████▎ | 113M/135M [00:07<00:01, 12.2MB/s]Downloading:  86%|████████▌ | 115M/135M [00:08<00:01, 11.5MB/s]Downloading:  88%|████████▊ | 118M/135M [00:08<00:01, 14.0MB/s]Downloading:  90%|████████▉ | 121M/135M [00:08<00:00, 16.3MB/s]Downloading:  91%|█████████▏| 123M/135M [00:08<00:00, 18.4MB/s]Downloading:  93%|█████████▎| 126M/135M [00:08<00:00, 13.9MB/s]Downloading:  96%|█████████▌| 129M/135M [00:08<00:00, 17.0MB/s]Downloading:  98%|█████████▊| 132M/135M [00:09<00:00, 16.2MB/s]Downloading: 100%|█████████▉| 134M/135M [00:09<00:00, 15.8MB/s]Downloading: 100%|██████████| 135M/135M [00:09<00:00, 14.5MB/s]
+Download finished. Extracting...
+Resampling...
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 507, in nnUNet_predict_image
+    img_in_rsp = change_spacing(img_in, resample,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/resampling.py", line 211, in change_spacing
+    new_data = resample_img(data, zoom=zoom, order=order, nr_cpus=nr_cpus)  # cpu resampling
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/resampling.py", line 48, in resample_img
+    img_sm = Parallel(n_jobs=nr_cpus)(delayed(_process_gradient)(grad_idx) for grad_idx in range(img.shape[3]))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/joblib/parallel.py", line 1918, in __call__
+    return output if self.return_generator else list(output)
+                                                ^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/joblib/parallel.py", line 1847, in _get_sequential_output
+    res = func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/resampling.py", line 37, in _process_gradient
+    return ndimage.zoom(img[:, :, :, grad_idx], zoom, mode="nearest", order=order)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/scipy/ndimage/_interpolation.py", line 830, in zoom
+    padded, npad = _prepad_for_spline_filter(input, mode, cval)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/scipy/ndimage/_interpolation.py", line 218, in _prepad_for_spline_filter
+    padded = np.pad(input, npad, mode='edge')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/numpy/lib/_arraypad_impl.py", line 845, in pad
+    axes = range(padded.ndim)
+           ^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

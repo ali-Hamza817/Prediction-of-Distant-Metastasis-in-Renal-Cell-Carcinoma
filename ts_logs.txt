@@ -1,0 +1,1317 @@
+Generating Whole-Kidney Masks using TotalSegmentator...
+[1] Segmenting: TCGA-B0-4845
+  -> Failed: Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 498, in nnUNet_predict_image
+    img_in = as_closest_canonical(img_in)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/alignment.py", line 12, in as_closest_canonical
+    return nib.as_closest_canonical(img_in)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/funcs.py", line 203, in as_closest_canonical
+    img = img.as_reoriented(io_orientation(img.affine))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/nifti1.py", line 2397, in as_reoriented
+    img = super().as_reoriented(ornt)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/spatialimages.py", line 686, in as_reoriented
+    t_arr = apply_orientation(np.asanyarray(self.dataobj), ornt)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/orientations.py", line 159, in apply_orientation
+    raise OrientationError('Cannot drop coordinates when applying orientation to data')
+nibabel.orientations.OrientationError: Cannot drop coordinates when applying orientation to data
+
+[1] Segmenting: TCGA-B0-4849
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-4849_mask.nii.gz
+[2] Segmenting: TCGA-B0-5077
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-5077_mask.nii.gz
+[3] Segmenting: TCGA-B0-5081
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-5081_mask.nii.gz
+[4] Segmenting: TCGA-B0-5085
+  -> Failed: Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 498, in nnUNet_predict_image
+    img_in = as_closest_canonical(img_in)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/alignment.py", line 12, in as_closest_canonical
+    return nib.as_closest_canonical(img_in)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/funcs.py", line 203, in as_closest_canonical
+    img = img.as_reoriented(io_orientation(img.affine))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/nifti1.py", line 2397, in as_reoriented
+    img = super().as_reoriented(ornt)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/spatialimages.py", line 686, in as_reoriented
+    t_arr = apply_orientation(np.asanyarray(self.dataobj), ornt)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/orientations.py", line 159, in apply_orientation
+    raise OrientationError('Cannot drop coordinates when applying orientation to data')
+nibabel.orientations.OrientationError: Cannot drop coordinates when applying orientation to data
+
+[4] Segmenting: TCGA-B0-5088
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-5088_mask.nii.gz
+[5] Segmenting: TCGA-B0-5097
+  -> Failed: Process SpawnProcess-15:
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 58, in preprocess_fromfiles_save_to_queue
+    raise e
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 31, in preprocess_fromfiles_save_to_queue
+    data, seg, data_properties = preprocessor.run_case(list_of_lists[idx],
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/preprocessing/preprocessors/default_preprocessor.py", line 135, in run_case
+    data, data_properties = rw.read_images(image_files)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/imageio/nibabel_reader_writer.py", line 136, in read_images
+    images.append(reoriented_image.get_fdata().transpose((2, 1, 0))[None])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: axes don't match array
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 616, in nnUNet_predict_image
+    nnUNetv2_predict(tmp_dir, tmp_dir, task_id, model, folds, trainer, tta,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 309, in nnUNetv2_predict
+    predictor.predict_from_files(dir_in, dir_out,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 281, in predict_from_files
+    return self.predict_from_data_iterator(data_iterator, save_probabilities, num_processes_segmentation_export)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 374, in predict_from_data_iterator
+    for preprocessed in data_iterator:
+                        ^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 111, in preprocessing_iterator_fromfiles
+    raise RuntimeError('Background workers died. Look for the error message further up! If there is '
+RuntimeError: Background workers died. Look for the error message further up! If there is none then your RAM was full and the worker was killed by the OS. Use fewer workers or get more RAM in that case!
+
+[5] Segmenting: TCGA-B0-5099
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-5099_mask.nii.gz
+[6] Segmenting: TCGA-B0-5106
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-5106_mask.nii.gz
+[7] Segmenting: TCGA-B0-5109
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-5109_mask.nii.gz
+[8] Segmenting: TCGA-B0-5110
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-5110_mask.nii.gz
+[9] Segmenting: TCGA-B0-5115
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-5115_mask.nii.gz
+[10] Segmenting: TCGA-B0-5117
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-5117_mask.nii.gz
+[11] Segmenting: TCGA-B0-5121
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-5121_mask.nii.gz
+[12] Segmenting: TCGA-B0-5399
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-5399_mask.nii.gz
+[13] Segmenting: TCGA-B0-5696
+  -> Failed: /home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/nifti1.py:1244: RuntimeWarning: invalid value encountered in divide
+  R = RZS / zooms
+/home/administrator/miniconda3/lib/python3.12/site-packages/numpy/linalg/_linalg.py:2406: RuntimeWarning: invalid value encountered in det
+  r = _umath_linalg.det(a, signature=signature)
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/nifti1.py", line 1257, in set_qform
+    P, S, Qs = npl.svd(R)
+               ^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/numpy/linalg/_linalg.py", line 1841, in svd
+    u, s, vh = gufunc(a, signature=signature)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/numpy/linalg/_linalg.py", line 154, in _raise_linalgerror_svd_nonconvergence
+    raise LinAlgError("SVD did not converge")
+numpy.linalg.LinAlgError: SVD did not converge
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 459, in nnUNet_predict_image
+    img_in = nib.Nifti1Image(img_in_orig.get_fdata(), img_in_orig.affine)  # copy img_in_orig
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/nifti1.py", line 2006, in __init__
+    super().__init__(dataobj, affine, header, extra, file_map, dtype)
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/analyze.py", line 912, in __init__
+    super().__init__(dataobj, affine, header, extra, file_map)
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/spatialimages.py", line 523, in __init__
+    self.update_header()
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/nifti1.py", line 2431, in update_header
+    super().update_header()
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/nifti1.py", line 2042, in update_header
+    super().update_header()
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/spatialimages.py", line 557, in update_header
+    self._affine2header()
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/nifti1.py", line 2052, in _affine2header
+    hdr.set_qform(self._affine, code='unknown')
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/nifti1.py", line 1259, in set_qform
+    raise HeaderDataError(f'Could not decompose affine:\n{affine}') from e
+nibabel.spatialimages.HeaderDataError: Could not decompose affine:
+[[  -0.77539098    0.           -0.          198.5       ]
+ [  -0.            0.77539098   -0.         -190.52479553]
+ [   0.            0.            0.         -694.        ]
+ [   0.            0.            0.            1.        ]]
+
+[13] Segmenting: TCGA-B0-5697
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-5697_mask.nii.gz
+[14] Segmenting: TCGA-B0-5698
+  -> Failed: Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 498, in nnUNet_predict_image
+    img_in = as_closest_canonical(img_in)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/alignment.py", line 12, in as_closest_canonical
+    return nib.as_closest_canonical(img_in)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/funcs.py", line 203, in as_closest_canonical
+    img = img.as_reoriented(io_orientation(img.affine))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/nifti1.py", line 2397, in as_reoriented
+    img = super().as_reoriented(ornt)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/spatialimages.py", line 686, in as_reoriented
+    t_arr = apply_orientation(np.asanyarray(self.dataobj), ornt)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/orientations.py", line 159, in apply_orientation
+    raise OrientationError('Cannot drop coordinates when applying orientation to data')
+nibabel.orientations.OrientationError: Cannot drop coordinates when applying orientation to data
+
+[14] Segmenting: TCGA-B0-5702
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-5702_mask.nii.gz
+[15] Segmenting: TCGA-B0-5703
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-5703_mask.nii.gz
+[16] Segmenting: TCGA-B0-5706
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-5706_mask.nii.gz
+[17] Segmenting: TCGA-B0-5707
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-5707_mask.nii.gz
+[18] Segmenting: TCGA-B0-5709
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-5709_mask.nii.gz
+[19] Segmenting: TCGA-B0-5711
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-5711_mask.nii.gz
+[20] Segmenting: TCGA-B0-5712
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-5712_mask.nii.gz
+[21] Segmenting: TCGA-B0-5812
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B0-5812_mask.nii.gz
+[22] Segmenting: TCGA-B8-4143
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-4143_mask.nii.gz
+[23] Segmenting: TCGA-B8-4146
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-4146_mask.nii.gz
+[24] Segmenting: TCGA-B8-4148
+  -> Failed: Process SpawnProcess-15:
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 58, in preprocess_fromfiles_save_to_queue
+    raise e
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 31, in preprocess_fromfiles_save_to_queue
+    data, seg, data_properties = preprocessor.run_case(list_of_lists[idx],
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/preprocessing/preprocessors/default_preprocessor.py", line 135, in run_case
+    data, data_properties = rw.read_images(image_files)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/imageio/nibabel_reader_writer.py", line 136, in read_images
+    images.append(reoriented_image.get_fdata().transpose((2, 1, 0))[None])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: axes don't match array
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 616, in nnUNet_predict_image
+    nnUNetv2_predict(tmp_dir, tmp_dir, task_id, model, folds, trainer, tta,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 309, in nnUNetv2_predict
+    predictor.predict_from_files(dir_in, dir_out,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 281, in predict_from_files
+    return self.predict_from_data_iterator(data_iterator, save_probabilities, num_processes_segmentation_export)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 374, in predict_from_data_iterator
+    for preprocessed in data_iterator:
+                        ^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 111, in preprocessing_iterator_fromfiles
+    raise RuntimeError('Background workers died. Look for the error message further up! If there is '
+RuntimeError: Background workers died. Look for the error message further up! If there is none then your RAM was full and the worker was killed by the OS. Use fewer workers or get more RAM in that case!
+
+[24] Segmenting: TCGA-B8-4151
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-4151_mask.nii.gz
+[25] Segmenting: TCGA-B8-4153
+  -> Failed: /home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/nifti1.py:1244: RuntimeWarning: invalid value encountered in divide
+  R = RZS / zooms
+/home/administrator/miniconda3/lib/python3.12/site-packages/numpy/linalg/_linalg.py:2406: RuntimeWarning: invalid value encountered in det
+  r = _umath_linalg.det(a, signature=signature)
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/nifti1.py", line 1257, in set_qform
+    P, S, Qs = npl.svd(R)
+               ^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/numpy/linalg/_linalg.py", line 1841, in svd
+    u, s, vh = gufunc(a, signature=signature)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/numpy/linalg/_linalg.py", line 154, in _raise_linalgerror_svd_nonconvergence
+    raise LinAlgError("SVD did not converge")
+numpy.linalg.LinAlgError: SVD did not converge
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 459, in nnUNet_predict_image
+    img_in = nib.Nifti1Image(img_in_orig.get_fdata(), img_in_orig.affine)  # copy img_in_orig
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/nifti1.py", line 2006, in __init__
+    super().__init__(dataobj, affine, header, extra, file_map, dtype)
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/analyze.py", line 912, in __init__
+    super().__init__(dataobj, affine, header, extra, file_map)
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/spatialimages.py", line 523, in __init__
+    self.update_header()
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/nifti1.py", line 2431, in update_header
+    super().update_header()
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/nifti1.py", line 2042, in update_header
+    super().update_header()
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/spatialimages.py", line 557, in update_header
+    self._affine2header()
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/nifti1.py", line 2052, in _affine2header
+    hdr.set_qform(self._affine, code='unknown')
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/nifti1.py", line 1259, in set_qform
+    raise HeaderDataError(f'Could not decompose affine:\n{affine}') from e
+nibabel.spatialimages.HeaderDataError: Could not decompose affine:
+[[  -0.875     0.       -0.      231.5625]
+ [  -0.        0.875    -0.      -41.5625]
+ [   0.        0.        0.     -491.25  ]
+ [   0.        0.        0.        1.    ]]
+
+[25] Segmenting: TCGA-B8-4154
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-4154_mask.nii.gz
+[26] Segmenting: TCGA-B8-4619
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-4619_mask.nii.gz
+[27] Segmenting: TCGA-B8-4620
+  -> Failed: Process SpawnProcess-15:
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 58, in preprocess_fromfiles_save_to_queue
+    raise e
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 31, in preprocess_fromfiles_save_to_queue
+    data, seg, data_properties = preprocessor.run_case(list_of_lists[idx],
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/preprocessing/preprocessors/default_preprocessor.py", line 135, in run_case
+    data, data_properties = rw.read_images(image_files)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/imageio/nibabel_reader_writer.py", line 136, in read_images
+    images.append(reoriented_image.get_fdata().transpose((2, 1, 0))[None])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: axes don't match array
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 616, in nnUNet_predict_image
+    nnUNetv2_predict(tmp_dir, tmp_dir, task_id, model, folds, trainer, tta,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 309, in nnUNetv2_predict
+    predictor.predict_from_files(dir_in, dir_out,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 281, in predict_from_files
+    return self.predict_from_data_iterator(data_iterator, save_probabilities, num_processes_segmentation_export)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 374, in predict_from_data_iterator
+    for preprocessed in data_iterator:
+                        ^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 111, in preprocessing_iterator_fromfiles
+    raise RuntimeError('Background workers died. Look for the error message further up! If there is '
+RuntimeError: Background workers died. Look for the error message further up! If there is none then your RAM was full and the worker was killed by the OS. Use fewer workers or get more RAM in that case!
+
+[27] Segmenting: TCGA-B8-4621
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-4621_mask.nii.gz
+[28] Segmenting: TCGA-B8-4622
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-4622_mask.nii.gz
+[29] Segmenting: TCGA-B8-5158
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-5158_mask.nii.gz
+[30] Segmenting: TCGA-B8-5159
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-5159_mask.nii.gz
+[31] Segmenting: TCGA-B8-5162
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-5162_mask.nii.gz
+[32] Segmenting: TCGA-B8-5163
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-5163_mask.nii.gz
+[33] Segmenting: TCGA-B8-5164
+  -> Failed: Process SpawnProcess-15:
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 58, in preprocess_fromfiles_save_to_queue
+    raise e
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 31, in preprocess_fromfiles_save_to_queue
+    data, seg, data_properties = preprocessor.run_case(list_of_lists[idx],
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/preprocessing/preprocessors/default_preprocessor.py", line 135, in run_case
+    data, data_properties = rw.read_images(image_files)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/imageio/nibabel_reader_writer.py", line 136, in read_images
+    images.append(reoriented_image.get_fdata().transpose((2, 1, 0))[None])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: axes don't match array
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 616, in nnUNet_predict_image
+    nnUNetv2_predict(tmp_dir, tmp_dir, task_id, model, folds, trainer, tta,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 309, in nnUNetv2_predict
+    predictor.predict_from_files(dir_in, dir_out,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 281, in predict_from_files
+    return self.predict_from_data_iterator(data_iterator, save_probabilities, num_processes_segmentation_export)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 374, in predict_from_data_iterator
+    for preprocessed in data_iterator:
+                        ^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 111, in preprocessing_iterator_fromfiles
+    raise RuntimeError('Background workers died. Look for the error message further up! If there is '
+RuntimeError: Background workers died. Look for the error message further up! If there is none then your RAM was full and the worker was killed by the OS. Use fewer workers or get more RAM in that case!
+
+[33] Segmenting: TCGA-B8-5165
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-5165_mask.nii.gz
+[34] Segmenting: TCGA-B8-5545
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-5545_mask.nii.gz
+[35] Segmenting: TCGA-B8-5546
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-5546_mask.nii.gz
+[36] Segmenting: TCGA-B8-5549
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-5549_mask.nii.gz
+[37] Segmenting: TCGA-B8-5550
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-5550_mask.nii.gz
+[38] Segmenting: TCGA-B8-5551
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-5551_mask.nii.gz
+[39] Segmenting: TCGA-B8-5552
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-5552_mask.nii.gz
+[40] Segmenting: TCGA-B8-5553
+  -> Failed: Process SpawnProcess-15:
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 58, in preprocess_fromfiles_save_to_queue
+    raise e
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 31, in preprocess_fromfiles_save_to_queue
+    data, seg, data_properties = preprocessor.run_case(list_of_lists[idx],
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/preprocessing/preprocessors/default_preprocessor.py", line 135, in run_case
+    data, data_properties = rw.read_images(image_files)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/imageio/nibabel_reader_writer.py", line 136, in read_images
+    images.append(reoriented_image.get_fdata().transpose((2, 1, 0))[None])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: axes don't match array
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 616, in nnUNet_predict_image
+    nnUNetv2_predict(tmp_dir, tmp_dir, task_id, model, folds, trainer, tta,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 309, in nnUNetv2_predict
+    predictor.predict_from_files(dir_in, dir_out,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 281, in predict_from_files
+    return self.predict_from_data_iterator(data_iterator, save_probabilities, num_processes_segmentation_export)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 374, in predict_from_data_iterator
+    for preprocessed in data_iterator:
+                        ^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 111, in preprocessing_iterator_fromfiles
+    raise RuntimeError('Background workers died. Look for the error message further up! If there is '
+RuntimeError: Background workers died. Look for the error message further up! If there is none then your RAM was full and the worker was killed by the OS. Use fewer workers or get more RAM in that case!
+
+[40] Segmenting: TCGA-B8-A54D
+  -> Failed: Process SpawnProcess-15:
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 58, in preprocess_fromfiles_save_to_queue
+    raise e
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 31, in preprocess_fromfiles_save_to_queue
+    data, seg, data_properties = preprocessor.run_case(list_of_lists[idx],
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/preprocessing/preprocessors/default_preprocessor.py", line 135, in run_case
+    data, data_properties = rw.read_images(image_files)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/imageio/nibabel_reader_writer.py", line 136, in read_images
+    images.append(reoriented_image.get_fdata().transpose((2, 1, 0))[None])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: axes don't match array
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 616, in nnUNet_predict_image
+    nnUNetv2_predict(tmp_dir, tmp_dir, task_id, model, folds, trainer, tta,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 309, in nnUNetv2_predict
+    predictor.predict_from_files(dir_in, dir_out,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 281, in predict_from_files
+    return self.predict_from_data_iterator(data_iterator, save_probabilities, num_processes_segmentation_export)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 374, in predict_from_data_iterator
+    for preprocessed in data_iterator:
+                        ^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 111, in preprocessing_iterator_fromfiles
+    raise RuntimeError('Background workers died. Look for the error message further up! If there is '
+RuntimeError: Background workers died. Look for the error message further up! If there is none then your RAM was full and the worker was killed by the OS. Use fewer workers or get more RAM in that case!
+
+[40] Segmenting: TCGA-B8-A54E
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-A54E_mask.nii.gz
+[41] Segmenting: TCGA-B8-A54F
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-A54F_mask.nii.gz
+[42] Segmenting: TCGA-B8-A54G
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-B8-A54G_mask.nii.gz
+[43] Segmenting: TCGA-BP-4164
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4164_mask.nii.gz
+[44] Segmenting: TCGA-BP-4166
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4166_mask.nii.gz
+[45] Segmenting: TCGA-BP-4167
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4167_mask.nii.gz
+[46] Segmenting: TCGA-BP-4169
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4169_mask.nii.gz
+[47] Segmenting: TCGA-BP-4170
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4170_mask.nii.gz
+[48] Segmenting: TCGA-BP-4173
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4173_mask.nii.gz
+[49] Segmenting: TCGA-BP-4177
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4177_mask.nii.gz
+[50] Segmenting: TCGA-BP-4330
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4330_mask.nii.gz
+[51] Segmenting: TCGA-BP-4331
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4331_mask.nii.gz
+[52] Segmenting: TCGA-BP-4334
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4334_mask.nii.gz
+[53] Segmenting: TCGA-BP-4335
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4335_mask.nii.gz
+[54] Segmenting: TCGA-BP-4342
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4342_mask.nii.gz
+[55] Segmenting: TCGA-BP-4343
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4343_mask.nii.gz
+[56] Segmenting: TCGA-BP-4345
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4345_mask.nii.gz
+[57] Segmenting: TCGA-BP-4346
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4346_mask.nii.gz
+[58] Segmenting: TCGA-BP-4347
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4347_mask.nii.gz
+[59] Segmenting: TCGA-BP-4349
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4349_mask.nii.gz
+[60] Segmenting: TCGA-BP-4351
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4351_mask.nii.gz
+[61] Segmenting: TCGA-BP-4352
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4352_mask.nii.gz
+[62] Segmenting: TCGA-BP-4353
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4353_mask.nii.gz
+[63] Segmenting: TCGA-BP-4354
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4354_mask.nii.gz
+[64] Segmenting: TCGA-BP-4355
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4355_mask.nii.gz
+[65] Segmenting: TCGA-BP-4759
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4759_mask.nii.gz
+[66] Segmenting: TCGA-BP-4760
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4760_mask.nii.gz
+[67] Segmenting: TCGA-BP-4761
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4761_mask.nii.gz
+[68] Segmenting: TCGA-BP-4762
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4762_mask.nii.gz
+[69] Segmenting: TCGA-BP-4763
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4763_mask.nii.gz
+[70] Segmenting: TCGA-BP-4766
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4766_mask.nii.gz
+[71] Segmenting: TCGA-BP-4768
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4768_mask.nii.gz
+[72] Segmenting: TCGA-BP-4769
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4769_mask.nii.gz
+[73] Segmenting: TCGA-BP-4770
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4770_mask.nii.gz
+[74] Segmenting: TCGA-BP-4771
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4771_mask.nii.gz
+[75] Segmenting: TCGA-BP-4774
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4774_mask.nii.gz
+[76] Segmenting: TCGA-BP-4775
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4775_mask.nii.gz
+[77] Segmenting: TCGA-BP-4777
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4777_mask.nii.gz
+[78] Segmenting: TCGA-BP-4781
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4781_mask.nii.gz
+[79] Segmenting: TCGA-BP-4782
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4782_mask.nii.gz
+[80] Segmenting: TCGA-BP-4784
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4784_mask.nii.gz
+[81] Segmenting: TCGA-BP-4787
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4787_mask.nii.gz
+[82] Segmenting: TCGA-BP-4789
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4789_mask.nii.gz
+[83] Segmenting: TCGA-BP-4790
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4790_mask.nii.gz
+[84] Segmenting: TCGA-BP-4795
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4795_mask.nii.gz
+[85] Segmenting: TCGA-BP-4797
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4797_mask.nii.gz
+[86] Segmenting: TCGA-BP-4799
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4799_mask.nii.gz
+[87] Segmenting: TCGA-BP-4801
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4801_mask.nii.gz
+[88] Segmenting: TCGA-BP-4803
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4803_mask.nii.gz
+[89] Segmenting: TCGA-BP-4804
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4804_mask.nii.gz
+[90] Segmenting: TCGA-BP-4807
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4807_mask.nii.gz
+[91] Segmenting: TCGA-BP-4960
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4960_mask.nii.gz
+[92] Segmenting: TCGA-BP-4962
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4962_mask.nii.gz
+[93] Segmenting: TCGA-BP-4963
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4963_mask.nii.gz
+[94] Segmenting: TCGA-BP-4964
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4964_mask.nii.gz
+[95] Segmenting: TCGA-BP-4965
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4965_mask.nii.gz
+[96] Segmenting: TCGA-BP-4967
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4967_mask.nii.gz
+[97] Segmenting: TCGA-BP-4970
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4970_mask.nii.gz
+[98] Segmenting: TCGA-BP-4971
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4971_mask.nii.gz
+[99] Segmenting: TCGA-BP-4972
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4972_mask.nii.gz
+[100] Segmenting: TCGA-BP-4973
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4973_mask.nii.gz
+[101] Segmenting: TCGA-BP-4975
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4975_mask.nii.gz
+[102] Segmenting: TCGA-BP-4976
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4976_mask.nii.gz
+[103] Segmenting: TCGA-BP-4977
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4977_mask.nii.gz
+[104] Segmenting: TCGA-BP-4982
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4982_mask.nii.gz
+[105] Segmenting: TCGA-BP-4986
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4986_mask.nii.gz
+[106] Segmenting: TCGA-BP-4988
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4988_mask.nii.gz
+[107] Segmenting: TCGA-BP-4989
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4989_mask.nii.gz
+[108] Segmenting: TCGA-BP-4992
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4992_mask.nii.gz
+[109] Segmenting: TCGA-BP-4994
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4994_mask.nii.gz
+[110] Segmenting: TCGA-BP-4995
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4995_mask.nii.gz
+[111] Segmenting: TCGA-BP-4999
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-4999_mask.nii.gz
+[112] Segmenting: TCGA-BP-5000
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5000_mask.nii.gz
+[113] Segmenting: TCGA-BP-5001
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5001_mask.nii.gz
+[114] Segmenting: TCGA-BP-5004
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5004_mask.nii.gz
+[115] Segmenting: TCGA-BP-5006
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5006_mask.nii.gz
+[116] Segmenting: TCGA-BP-5007
+  -> Failed: Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 498, in nnUNet_predict_image
+    img_in = as_closest_canonical(img_in)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/alignment.py", line 12, in as_closest_canonical
+    return nib.as_closest_canonical(img_in)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/funcs.py", line 203, in as_closest_canonical
+    img = img.as_reoriented(io_orientation(img.affine))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/nifti1.py", line 2397, in as_reoriented
+    img = super().as_reoriented(ornt)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/spatialimages.py", line 686, in as_reoriented
+    t_arr = apply_orientation(np.asanyarray(self.dataobj), ornt)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/orientations.py", line 159, in apply_orientation
+    raise OrientationError('Cannot drop coordinates when applying orientation to data')
+nibabel.orientations.OrientationError: Cannot drop coordinates when applying orientation to data
+
+[116] Segmenting: TCGA-BP-5009
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5009_mask.nii.gz
+[117] Segmenting: TCGA-BP-5010
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5010_mask.nii.gz
+[118] Segmenting: TCGA-BP-5168
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5168_mask.nii.gz
+[119] Segmenting: TCGA-BP-5169
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5169_mask.nii.gz
+[120] Segmenting: TCGA-BP-5173
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5173_mask.nii.gz
+[121] Segmenting: TCGA-BP-5174
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5174_mask.nii.gz
+[122] Segmenting: TCGA-BP-5175
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5175_mask.nii.gz
+[123] Segmenting: TCGA-BP-5176
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5176_mask.nii.gz
+[124] Segmenting: TCGA-BP-5178
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5178_mask.nii.gz
+[125] Segmenting: TCGA-BP-5180
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5180_mask.nii.gz
+[126] Segmenting: TCGA-BP-5181
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5181_mask.nii.gz
+[127] Segmenting: TCGA-BP-5183
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5183_mask.nii.gz
+[128] Segmenting: TCGA-BP-5184
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5184_mask.nii.gz
+[129] Segmenting: TCGA-BP-5185
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5185_mask.nii.gz
+[130] Segmenting: TCGA-BP-5186
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5186_mask.nii.gz
+[131] Segmenting: TCGA-BP-5187
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5187_mask.nii.gz
+[132] Segmenting: TCGA-BP-5189
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5189_mask.nii.gz
+[133] Segmenting: TCGA-BP-5190
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5190_mask.nii.gz
+[134] Segmenting: TCGA-BP-5191
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5191_mask.nii.gz
+[135] Segmenting: TCGA-BP-5192
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5192_mask.nii.gz
+[136] Segmenting: TCGA-BP-5194
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5194_mask.nii.gz
+[137] Segmenting: TCGA-BP-5195
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5195_mask.nii.gz
+[138] Segmenting: TCGA-BP-5196
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5196_mask.nii.gz
+[139] Segmenting: TCGA-BP-5198
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5198_mask.nii.gz
+[140] Segmenting: TCGA-BP-5199
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5199_mask.nii.gz
+[141] Segmenting: TCGA-BP-5200
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5200_mask.nii.gz
+[142] Segmenting: TCGA-BP-5201
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5201_mask.nii.gz
+[143] Segmenting: TCGA-BP-5202
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-BP-5202_mask.nii.gz
+[144] Segmenting: TCGA-CJ-4635
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4635_mask.nii.gz
+[145] Segmenting: TCGA-CJ-4636
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4636_mask.nii.gz
+[146] Segmenting: TCGA-CJ-4637
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4637_mask.nii.gz
+[147] Segmenting: TCGA-CJ-4641
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4641_mask.nii.gz
+[148] Segmenting: TCGA-CJ-4642
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4642_mask.nii.gz
+[149] Segmenting: TCGA-CJ-4643
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4643_mask.nii.gz
+[150] Segmenting: TCGA-CJ-4870
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4870_mask.nii.gz
+[151] Segmenting: TCGA-CJ-4871
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4871_mask.nii.gz
+[152] Segmenting: TCGA-CJ-4872
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4872_mask.nii.gz
+[153] Segmenting: TCGA-CJ-4873
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4873_mask.nii.gz
+[154] Segmenting: TCGA-CJ-4876
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4876_mask.nii.gz
+[155] Segmenting: TCGA-CJ-4884
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4884_mask.nii.gz
+[156] Segmenting: TCGA-CJ-4885
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4885_mask.nii.gz
+[157] Segmenting: TCGA-CJ-4886
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4886_mask.nii.gz
+[158] Segmenting: TCGA-CJ-4887
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4887_mask.nii.gz
+[159] Segmenting: TCGA-CJ-4889
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4889_mask.nii.gz
+[160] Segmenting: TCGA-CJ-4891
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4891_mask.nii.gz
+[161] Segmenting: TCGA-CJ-4892
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4892_mask.nii.gz
+[162] Segmenting: TCGA-CJ-4893
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4893_mask.nii.gz
+[163] Segmenting: TCGA-CJ-4894
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4894_mask.nii.gz
+[164] Segmenting: TCGA-CJ-4895
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4895_mask.nii.gz
+[165] Segmenting: TCGA-CJ-4897
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4897_mask.nii.gz
+[166] Segmenting: TCGA-CJ-4899
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4899_mask.nii.gz
+[167] Segmenting: TCGA-CJ-4900
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4900_mask.nii.gz
+[168] Segmenting: TCGA-CJ-4901
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4901_mask.nii.gz
+[169] Segmenting: TCGA-CJ-4902
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4902_mask.nii.gz
+[170] Segmenting: TCGA-CJ-4903
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4903_mask.nii.gz
+[171] Segmenting: TCGA-CJ-4904
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4904_mask.nii.gz
+[172] Segmenting: TCGA-CJ-4905
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4905_mask.nii.gz
+[173] Segmenting: TCGA-CJ-4907
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4907_mask.nii.gz
+[174] Segmenting: TCGA-CJ-4908
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4908_mask.nii.gz
+[175] Segmenting: TCGA-CJ-4912
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4912_mask.nii.gz
+[176] Segmenting: TCGA-CJ-4913
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4913_mask.nii.gz
+[177] Segmenting: TCGA-CJ-4916
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4916_mask.nii.gz
+[178] Segmenting: TCGA-CJ-4918
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4918_mask.nii.gz
+[179] Segmenting: TCGA-CJ-4920
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4920_mask.nii.gz
+[180] Segmenting: TCGA-CJ-4923
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-4923_mask.nii.gz
+[181] Segmenting: TCGA-CJ-5671
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-5671_mask.nii.gz
+[182] Segmenting: TCGA-CJ-5672
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-5672_mask.nii.gz
+[183] Segmenting: TCGA-CJ-5675
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-5675_mask.nii.gz
+[184] Segmenting: TCGA-CJ-5677
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-5677_mask.nii.gz
+[185] Segmenting: TCGA-CJ-5678
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-5678_mask.nii.gz
+[186] Segmenting: TCGA-CJ-5679
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-5679_mask.nii.gz
+[187] Segmenting: TCGA-CJ-5680
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-5680_mask.nii.gz
+[188] Segmenting: TCGA-CJ-5681
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-5681_mask.nii.gz
+[189] Segmenting: TCGA-CJ-5683
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-5683_mask.nii.gz
+[190] Segmenting: TCGA-CJ-5686
+  -> Failed: Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 498, in nnUNet_predict_image
+    img_in = as_closest_canonical(img_in)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/alignment.py", line 12, in as_closest_canonical
+    return nib.as_closest_canonical(img_in)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/funcs.py", line 203, in as_closest_canonical
+    img = img.as_reoriented(io_orientation(img.affine))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/nifti1.py", line 2397, in as_reoriented
+    img = super().as_reoriented(ornt)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/spatialimages.py", line 686, in as_reoriented
+    t_arr = apply_orientation(np.asanyarray(self.dataobj), ornt)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nibabel/orientations.py", line 159, in apply_orientation
+    raise OrientationError('Cannot drop coordinates when applying orientation to data')
+nibabel.orientations.OrientationError: Cannot drop coordinates when applying orientation to data
+
+[190] Segmenting: TCGA-CJ-6027
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-6027_mask.nii.gz
+[191] Segmenting: TCGA-CJ-6028
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-6028_mask.nii.gz
+[192] Segmenting: TCGA-CJ-6030
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-6030_mask.nii.gz
+[193] Segmenting: TCGA-CJ-6031
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-6031_mask.nii.gz
+[194] Segmenting: TCGA-CJ-6033
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CJ-6033_mask.nii.gz
+[195] Segmenting: TCGA-CW-5580
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CW-5580_mask.nii.gz
+[196] Segmenting: TCGA-CW-5581
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CW-5581_mask.nii.gz
+[197] Segmenting: TCGA-CW-5583
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CW-5583_mask.nii.gz
+[198] Segmenting: TCGA-CW-5584
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CW-5584_mask.nii.gz
+[199] Segmenting: TCGA-CW-5585
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CW-5585_mask.nii.gz
+[200] Segmenting: TCGA-CW-5587
+  -> Failed: Process SpawnProcess-15:
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 58, in preprocess_fromfiles_save_to_queue
+    raise e
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 31, in preprocess_fromfiles_save_to_queue
+    data, seg, data_properties = preprocessor.run_case(list_of_lists[idx],
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/preprocessing/preprocessors/default_preprocessor.py", line 135, in run_case
+    data, data_properties = rw.read_images(image_files)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/imageio/nibabel_reader_writer.py", line 136, in read_images
+    images.append(reoriented_image.get_fdata().transpose((2, 1, 0))[None])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: axes don't match array
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 616, in nnUNet_predict_image
+    nnUNetv2_predict(tmp_dir, tmp_dir, task_id, model, folds, trainer, tta,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 309, in nnUNetv2_predict
+    predictor.predict_from_files(dir_in, dir_out,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 281, in predict_from_files
+    return self.predict_from_data_iterator(data_iterator, save_probabilities, num_processes_segmentation_export)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 374, in predict_from_data_iterator
+    for preprocessed in data_iterator:
+                        ^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 111, in preprocessing_iterator_fromfiles
+    raise RuntimeError('Background workers died. Look for the error message further up! If there is '
+RuntimeError: Background workers died. Look for the error message further up! If there is none then your RAM was full and the worker was killed by the OS. Use fewer workers or get more RAM in that case!
+
+[200] Segmenting: TCGA-CW-5588
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CW-5588_mask.nii.gz
+[201] Segmenting: TCGA-CW-5589
+  -> Failed: Process SpawnProcess-15:
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 58, in preprocess_fromfiles_save_to_queue
+    raise e
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 31, in preprocess_fromfiles_save_to_queue
+    data, seg, data_properties = preprocessor.run_case(list_of_lists[idx],
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/preprocessing/preprocessors/default_preprocessor.py", line 135, in run_case
+    data, data_properties = rw.read_images(image_files)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/imageio/nibabel_reader_writer.py", line 136, in read_images
+    images.append(reoriented_image.get_fdata().transpose((2, 1, 0))[None])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: axes don't match array
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 616, in nnUNet_predict_image
+    nnUNetv2_predict(tmp_dir, tmp_dir, task_id, model, folds, trainer, tta,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 309, in nnUNetv2_predict
+    predictor.predict_from_files(dir_in, dir_out,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 281, in predict_from_files
+    return self.predict_from_data_iterator(data_iterator, save_probabilities, num_processes_segmentation_export)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 374, in predict_from_data_iterator
+    for preprocessed in data_iterator:
+                        ^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 111, in preprocessing_iterator_fromfiles
+    raise RuntimeError('Background workers died. Look for the error message further up! If there is '
+RuntimeError: Background workers died. Look for the error message further up! If there is none then your RAM was full and the worker was killed by the OS. Use fewer workers or get more RAM in that case!
+
+[201] Segmenting: TCGA-CW-5590
+  -> Failed: Process SpawnProcess-15:
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 58, in preprocess_fromfiles_save_to_queue
+    raise e
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 31, in preprocess_fromfiles_save_to_queue
+    data, seg, data_properties = preprocessor.run_case(list_of_lists[idx],
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/preprocessing/preprocessors/default_preprocessor.py", line 135, in run_case
+    data, data_properties = rw.read_images(image_files)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/imageio/nibabel_reader_writer.py", line 136, in read_images
+    images.append(reoriented_image.get_fdata().transpose((2, 1, 0))[None])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: axes don't match array
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 616, in nnUNet_predict_image
+    nnUNetv2_predict(tmp_dir, tmp_dir, task_id, model, folds, trainer, tta,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 309, in nnUNetv2_predict
+    predictor.predict_from_files(dir_in, dir_out,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 281, in predict_from_files
+    return self.predict_from_data_iterator(data_iterator, save_probabilities, num_processes_segmentation_export)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 374, in predict_from_data_iterator
+    for preprocessed in data_iterator:
+                        ^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 111, in preprocessing_iterator_fromfiles
+    raise RuntimeError('Background workers died. Look for the error message further up! If there is '
+RuntimeError: Background workers died. Look for the error message further up! If there is none then your RAM was full and the worker was killed by the OS. Use fewer workers or get more RAM in that case!
+
+[201] Segmenting: TCGA-CW-5591
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CW-5591_mask.nii.gz
+[202] Segmenting: TCGA-CW-6087
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CW-6087_mask.nii.gz
+[203] Segmenting: TCGA-CW-6088
+  -> Failed: Process SpawnProcess-15:
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 58, in preprocess_fromfiles_save_to_queue
+    raise e
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 31, in preprocess_fromfiles_save_to_queue
+    data, seg, data_properties = preprocessor.run_case(list_of_lists[idx],
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/preprocessing/preprocessors/default_preprocessor.py", line 135, in run_case
+    data, data_properties = rw.read_images(image_files)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/imageio/nibabel_reader_writer.py", line 136, in read_images
+    images.append(reoriented_image.get_fdata().transpose((2, 1, 0))[None])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: axes don't match array
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 616, in nnUNet_predict_image
+    nnUNetv2_predict(tmp_dir, tmp_dir, task_id, model, folds, trainer, tta,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 309, in nnUNetv2_predict
+    predictor.predict_from_files(dir_in, dir_out,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 281, in predict_from_files
+    return self.predict_from_data_iterator(data_iterator, save_probabilities, num_processes_segmentation_export)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 374, in predict_from_data_iterator
+    for preprocessed in data_iterator:
+                        ^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 111, in preprocessing_iterator_fromfiles
+    raise RuntimeError('Background workers died. Look for the error message further up! If there is '
+RuntimeError: Background workers died. Look for the error message further up! If there is none then your RAM was full and the worker was killed by the OS. Use fewer workers or get more RAM in that case!
+
+[203] Segmenting: TCGA-CW-6090
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CW-6090_mask.nii.gz
+[204] Segmenting: TCGA-CW-6093
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CW-6093_mask.nii.gz
+[205] Segmenting: TCGA-CW-6096
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CW-6096_mask.nii.gz
+[206] Segmenting: TCGA-CW-6097
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CW-6097_mask.nii.gz
+[207] Segmenting: TCGA-CZ-4857
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CZ-4857_mask.nii.gz
+[208] Segmenting: TCGA-CZ-4858
+  -> Failed: Process SpawnProcess-15:
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 58, in preprocess_fromfiles_save_to_queue
+    raise e
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 31, in preprocess_fromfiles_save_to_queue
+    data, seg, data_properties = preprocessor.run_case(list_of_lists[idx],
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/preprocessing/preprocessors/default_preprocessor.py", line 135, in run_case
+    data, data_properties = rw.read_images(image_files)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/imageio/nibabel_reader_writer.py", line 136, in read_images
+    images.append(reoriented_image.get_fdata().transpose((2, 1, 0))[None])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: axes don't match array
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 616, in nnUNet_predict_image
+    nnUNetv2_predict(tmp_dir, tmp_dir, task_id, model, folds, trainer, tta,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 309, in nnUNetv2_predict
+    predictor.predict_from_files(dir_in, dir_out,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 281, in predict_from_files
+    return self.predict_from_data_iterator(data_iterator, save_probabilities, num_processes_segmentation_export)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 374, in predict_from_data_iterator
+    for preprocessed in data_iterator:
+                        ^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 111, in preprocessing_iterator_fromfiles
+    raise RuntimeError('Background workers died. Look for the error message further up! If there is '
+RuntimeError: Background workers died. Look for the error message further up! If there is none then your RAM was full and the worker was killed by the OS. Use fewer workers or get more RAM in that case!
+
+[208] Segmenting: TCGA-CZ-4859
+  -> Failed: Process SpawnProcess-15:
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 58, in preprocess_fromfiles_save_to_queue
+    raise e
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 31, in preprocess_fromfiles_save_to_queue
+    data, seg, data_properties = preprocessor.run_case(list_of_lists[idx],
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/preprocessing/preprocessors/default_preprocessor.py", line 135, in run_case
+    data, data_properties = rw.read_images(image_files)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/imageio/nibabel_reader_writer.py", line 136, in read_images
+    images.append(reoriented_image.get_fdata().transpose((2, 1, 0))[None])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: axes don't match array
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 616, in nnUNet_predict_image
+    nnUNetv2_predict(tmp_dir, tmp_dir, task_id, model, folds, trainer, tta,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 309, in nnUNetv2_predict
+    predictor.predict_from_files(dir_in, dir_out,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 281, in predict_from_files
+    return self.predict_from_data_iterator(data_iterator, save_probabilities, num_processes_segmentation_export)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 374, in predict_from_data_iterator
+    for preprocessed in data_iterator:
+                        ^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 111, in preprocessing_iterator_fromfiles
+    raise RuntimeError('Background workers died. Look for the error message further up! If there is '
+RuntimeError: Background workers died. Look for the error message further up! If there is none then your RAM was full and the worker was killed by the OS. Use fewer workers or get more RAM in that case!
+
+[208] Segmenting: TCGA-CZ-4860
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CZ-4860_mask.nii.gz
+[209] Segmenting: TCGA-CZ-4861
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CZ-4861_mask.nii.gz
+[210] Segmenting: TCGA-CZ-4862
+  -> Failed: Process SpawnProcess-15:
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 58, in preprocess_fromfiles_save_to_queue
+    raise e
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 31, in preprocess_fromfiles_save_to_queue
+    data, seg, data_properties = preprocessor.run_case(list_of_lists[idx],
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/preprocessing/preprocessors/default_preprocessor.py", line 135, in run_case
+    data, data_properties = rw.read_images(image_files)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/imageio/nibabel_reader_writer.py", line 136, in read_images
+    images.append(reoriented_image.get_fdata().transpose((2, 1, 0))[None])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: axes don't match array
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 616, in nnUNet_predict_image
+    nnUNetv2_predict(tmp_dir, tmp_dir, task_id, model, folds, trainer, tta,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 309, in nnUNetv2_predict
+    predictor.predict_from_files(dir_in, dir_out,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 281, in predict_from_files
+    return self.predict_from_data_iterator(data_iterator, save_probabilities, num_processes_segmentation_export)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 374, in predict_from_data_iterator
+    for preprocessed in data_iterator:
+                        ^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 111, in preprocessing_iterator_fromfiles
+    raise RuntimeError('Background workers died. Look for the error message further up! If there is '
+RuntimeError: Background workers died. Look for the error message further up! If there is none then your RAM was full and the worker was killed by the OS. Use fewer workers or get more RAM in that case!
+
+[210] Segmenting: TCGA-CZ-4863
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CZ-4863_mask.nii.gz
+[211] Segmenting: TCGA-CZ-4865
+  -> Failed: Process SpawnProcess-15:
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/home/administrator/miniconda3/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 58, in preprocess_fromfiles_save_to_queue
+    raise e
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 31, in preprocess_fromfiles_save_to_queue
+    data, seg, data_properties = preprocessor.run_case(list_of_lists[idx],
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/preprocessing/preprocessors/default_preprocessor.py", line 135, in run_case
+    data, data_properties = rw.read_images(image_files)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/imageio/nibabel_reader_writer.py", line 136, in read_images
+    images.append(reoriented_image.get_fdata().transpose((2, 1, 0))[None])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: axes don't match array
+Traceback (most recent call last):
+  File "/home/administrator/miniconda3/bin/TotalSegmentator", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/bin/TotalSegmentator.py", line 216, in main
+    totalsegmentator(args.input, args.output, args.ml, args.nr_thr_resamp, args.nr_thr_saving,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/python_api.py", line 747, in totalsegmentator
+    organ_seg, _, _ = nnUNet_predict_image(input, None, crop_model_task, model="3d_fullres", folds=[0],
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 616, in nnUNet_predict_image
+    nnUNetv2_predict(tmp_dir, tmp_dir, task_id, model, folds, trainer, tta,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/totalsegmentator/nnunet.py", line 309, in nnUNetv2_predict
+    predictor.predict_from_files(dir_in, dir_out,
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 281, in predict_from_files
+    return self.predict_from_data_iterator(data_iterator, save_probabilities, num_processes_segmentation_export)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/predict_from_raw_data.py", line 374, in predict_from_data_iterator
+    for preprocessed in data_iterator:
+                        ^^^^^^^^^^^^^
+  File "/home/administrator/miniconda3/lib/python3.12/site-packages/nnunetv2/inference/data_iterators.py", line 111, in preprocessing_iterator_fromfiles
+    raise RuntimeError('Background workers died. Look for the error message further up! If there is '
+RuntimeError: Background workers died. Look for the error message further up! If there is none then your RAM was full and the worker was killed by the OS. Use fewer workers or get more RAM in that case!
+
+[211] Segmenting: TCGA-CZ-4866
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CZ-4866_mask.nii.gz
+[212] Segmenting: TCGA-CZ-5451
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CZ-5451_mask.nii.gz
+[213] Segmenting: TCGA-CZ-5452
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CZ-5452_mask.nii.gz
+[214] Segmenting: TCGA-CZ-5454
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CZ-5454_mask.nii.gz
+[215] Segmenting: TCGA-CZ-5455
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CZ-5455_mask.nii.gz
+[216] Segmenting: TCGA-CZ-5460
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CZ-5460_mask.nii.gz
+[217] Segmenting: TCGA-CZ-5462
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CZ-5462_mask.nii.gz
+[218] Segmenting: TCGA-CZ-5464
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CZ-5464_mask.nii.gz
+[219] Segmenting: TCGA-CZ-5466
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CZ-5466_mask.nii.gz
+[220] Segmenting: TCGA-CZ-5468
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CZ-5468_mask.nii.gz
+[221] Segmenting: TCGA-CZ-5984
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CZ-5984_mask.nii.gz
+[222] Segmenting: TCGA-CZ-5985
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CZ-5985_mask.nii.gz
+[223] Segmenting: TCGA-CZ-5987
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CZ-5987_mask.nii.gz
+[224] Segmenting: TCGA-CZ-5988
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CZ-5988_mask.nii.gz
+[225] Segmenting: TCGA-CZ-5989
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-CZ-5989_mask.nii.gz
+[226] Segmenting: TCGA-DV-5565
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-DV-5565_mask.nii.gz
+[227] Segmenting: TCGA-DV-5566
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-DV-5566_mask.nii.gz
+[228] Segmenting: TCGA-DV-5567
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-DV-5567_mask.nii.gz
+[229] Segmenting: TCGA-DV-5568
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-DV-5568_mask.nii.gz
+[230] Segmenting: TCGA-DV-5573
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-DV-5573_mask.nii.gz
+[231] Segmenting: TCGA-DV-5574
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-DV-5574_mask.nii.gz
+[232] Segmenting: TCGA-DV-5575
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-DV-5575_mask.nii.gz
+[233] Segmenting: TCGA-DV-5576
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-DV-5576_mask.nii.gz
+[234] Segmenting: TCGA-DV-A4VX
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-DV-A4VX_mask.nii.gz
+[235] Segmenting: TCGA-DV-A4VZ
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-DV-A4VZ_mask.nii.gz
+[236] Segmenting: TCGA-DV-A4W0
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-DV-A4W0_mask.nii.gz
+[237] Segmenting: TCGA-G6-A5PC
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-G6-A5PC_mask.nii.gz
+[238] Segmenting: TCGA-G6-A8L6
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-G6-A8L6_mask.nii.gz
+[239] Segmenting: TCGA-G6-A8L7
+  -> Success: datasets/dataset_3_masks_totalseg/TCGA-G6-A8L7_mask.nii.gz
+\nSuccessfully generated masks for 239 patients!
