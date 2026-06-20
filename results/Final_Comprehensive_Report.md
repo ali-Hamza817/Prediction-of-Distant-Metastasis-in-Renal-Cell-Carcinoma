@@ -1,4 +1,4 @@
-# Comprehensive Thesis Report: Multi-Cohort Late Fusion Framework for Predicting Distant Metastasis in Renal Cell Carcinoma
+# Comprehensive Thesis Report: A Decision-Level Fusion Framework for Predicting Distant Metastasis in Renal Cell Carcinoma Using Clinical, Transcriptomic, and Radiomic Biomarkers
 
 ## 1. Executive Summary
 

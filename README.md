@@ -1,7 +1,6 @@
 <div align="center">
   <h1>🔬 RCC·AI</h1>
-  <h3>Prediction of Distant Metastasis in Renal Cell Carcinoma</h3>
-  <p><i>A Multi-Cohort, Decision-Level Multimodal Fusion Framework</i></p>
+  <h3>A Decision-Level Fusion Framework for Predicting Distant Metastasis in Renal Cell Carcinoma Using Clinical, Transcriptomic, and Radiomic Biomarkers</h3>
 
   <p align="center">
     <img src="https://img.shields.io/badge/Status-Masters_Thesis_Complete-2ea44f?style=for-the-badge&logo=googlescholar&logoColor=white" alt="Status"/>
