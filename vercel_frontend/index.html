@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RCC Metastasis Predictor | 3-Modality AI Framework</title>
+  <meta name="description" content="State-of-the-art AI framework for Renal Cell Carcinoma metastasis prediction using clinical, genomic, and imaging data fusion." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ═══════════ HERO HEADER ═══════════ -->
+<header class="hero">
+  <div class="hero-glow"></div>
+  <nav class="nav">
+    <div class="nav-brand">
+      <div class="nav-logo">⬡</div>
+      <span class="nav-title">RCC<span class="accent">·AI</span></span>
+    </div>
+    <div class="nav-pills">
+      <a class="pill active" data-tab="clinical" href="#" onclick="switchTab('clinical', event)">Clinical</a>
+      <a class="pill" data-tab="genomic" href="#" onclick="switchTab('genomic', event)">Genomic</a>
+      <a class="pill" data-tab="imaging" href="#" onclick="switchTab('imaging', event)">Imaging</a>
+      <a class="pill pill-gold" data-tab="fusion" href="#" onclick="switchTab('fusion', event)">3-Modality Fusion</a>
+    </div>
+  </nav>
+
+  <div class="hero-content">
+    <div class="hero-badge">Masters Research · Q1 Publication Ready</div>
+    <h1 class="hero-title">Renal Cell Carcinoma<br/><span class="gradient-text">Metastasis Predictor</span></h1>
+    <p class="hero-subtitle">
+      First-of-its-kind 3-Modality AI framework fusing Clinical (SEER), Genomic (TCGA RNA-Seq), and Imaging (3D PyRadiomics) data — achieving <strong>AUROC 0.797</strong> with <strong>94.4% Recall</strong>.
+    </p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-val">0.797</span><span class="stat-lbl">Best AUROC</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="stat-val">94.4%</span><span class="stat-lbl">Recall (Genomic)</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="stat-val">3</span><span class="stat-lbl">Modalities Fused</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="stat-val">4×</span><span class="stat-lbl">FN Penalty Weight</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════ TABS ═══════════ -->
+<main class="main">
+
+  <!-- ── TAB: CLINICAL ── -->
+  <section id="tab-clinical" class="tab-panel active">
+    <div class="panel-header">
+      <div class="panel-icon">🏥</div>
+      <div>
+        <h2 class="panel-title">Model 1 · Clinical Risk Predictor</h2>
+        <p class="panel-desc">Trained on <strong>36,738 SEER patients</strong>. Predicts overall metastasis risk and site-specific risks for lung, bone, liver, and brain.</p>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3 class="card-title">Patient Demographics</h3>
+        <div class="form-group">
+          <label for="c_age">Age at Diagnosis</label>
+          <input id="c_age" type="number" min="18" max="100" value="65" placeholder="e.g. 65" />
+        </div>
+        <div class="form-group">
+          <label for="c_sex">Sex</label>
+          <select id="c_sex">
+            <option value="1">Male</option>
+            <option value="0">Female</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="c_year">Year of Diagnosis</label>
+          <input id="c_year" type="number" min="2010" max="2025" value="2018" />
+        </div>
+        <div class="form-group">
+          <label for="c_prior_tx">Prior Treatment</label>
+          <select id="c_prior_tx">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">Tumour Staging</h3>
+        <div class="form-group">
+          <label for="c_t_stage">T Stage (AJCC)</label>
+          <select id="c_t_stage">
+            <option value="0">T1 – Tumour ≤7 cm, confined to kidney</option>
+            <option value="1">T1a – ≤4 cm</option>
+            <option value="2">T2 – >7 cm, confined to kidney</option>
+            <option value="3" selected>T3 – Extends to veins/perinephric</option>
+            <option value="4">T4 – Invades beyond Gerota fascia</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="c_n_stage">N Stage (Nodes)</label>
+          <select id="c_n_stage">
+            <option value="0">N0 – No regional lymph node metastasis</option>
+            <option value="1">N1 – Regional lymph node metastasis</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="c_tumor_size">Tumour Size (cm)</label>
+          <input id="c_tumor_size" type="number" step="0.1" min="0.5" max="30" value="7.5" />
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">Histopathology</h3>
+        <div class="form-group">
+          <label for="c_grade">Tumour Grade (Fuhrman)</label>
+          <select id="c_grade">
+            <option value="0">Grade 1 – Well differentiated</option>
+            <option value="1">Grade 2 – Moderately differentiated</option>
+            <option value="2">Grade 3 – Poorly differentiated</option>
+            <option value="3" selected>Grade 3–4 (High Grade)</option>
+            <option value="4">Grade 4 – Undifferentiated / Sarcomatoid</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="c_histology">Histological Subtype</label>
+          <select id="c_histology">
+            <option value="0">Clear Cell RCC (ccRCC)</option>
+            <option value="1">Papillary RCC</option>
+            <option value="2">Chromophobe RCC</option>
+            <option value="3">Other / Unclassified</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="predict-bar">
+      <button class="btn-predict" onclick="runClinical()">
+        <span class="btn-icon">⚡</span> Run Clinical Prediction
+      </button>
+      <button class="btn-demo" onclick="fillClinicalDemo()">Load Demo Patient</button>
+    </div>
+
+    <div id="result-clinical" class="result-panel hidden"></div>
+  </section>
+
+  <section id="tab-genomic" class="tab-panel hidden">
+    <div class="panel-header">
+      <div class="panel-icon">🧬</div>
+      <div>
+        <h2 class="panel-title">Model 2 · Genomic Transcriptomic Predictor</h2>
+        <p class="panel-desc">Trained on <strong>418 TCGA-KIRC RNA-Seq patients</strong>. Uses 54 variance-filtered genes selected via ANOVA F-test. Achieved <strong>94.4% Recall</strong>.</p>
+      </div>
+    </div>
+
+    <!-- Mode Switcher -->
+    <div class="mode-switcher">
+      <button class="mode-btn active" id="geno-mode-file" onclick="setMode('genomic','file')">
+        <span>📂</span> Upload Expression File <span class="mode-badge recommended">Recommended</span>
+      </button>
+      <button class="mode-btn" id="geno-mode-manual" onclick="setMode('genomic','manual')">
+        <span>⌨️</span> Enter Values Manually
+      </button>
+    </div>
+
+    <!-- FILE UPLOAD MODE -->
+    <div id="geno-mode-file-panel">
+      <div class="upload-card">
+        <div class="upload-formats">
+          <div class="format-chip">CSV</div>
+          <div class="format-chip">TSV</div>
+          <div class="format-chip">RNA-Seq Output</div>
+        </div>
+        <div class="upload-zone" id="geno-dropzone" onclick="document.getElementById('geno-file-input').click()" ondragover="dragOver(event)" ondrop="dropFile(event,'geno-file-input','geno-dropzone')">
+          <div class="upload-icon">🧬</div>
+          <div class="upload-title">Drop RNA-Seq Expression File Here</div>
+          <div class="upload-sub">or click to browse — accepts CSV / TSV</div>
+          <input type="file" id="geno-file-input" accept=".csv,.tsv,.txt" style="display:none" onchange="handleFileSelect(this,'geno-dropzone','geno-filename')" />
+        </div>
+        <div id="geno-filename" class="file-name-display hidden"></div>
+
+        <div class="upload-formats-info">
+          <div class="format-info-item">
+            <strong>Format A (Recommended) — 2-column CSV:</strong>
+            <code>gene, expression_value_TPM</code>
+            One gene per row. Standard output from featureCounts, STAR, Salmon.
+          </div>
+          <div class="format-info-item">
+            <strong>Format B — Wide-format CSV:</strong>
+            Gene names as column headers, expression values in first row.
+          </div>
+        </div>
+
+        <div class="upload-actions">
+          <a href="/static/sample_gene_expression.csv" download class="btn-download">
+            ⬇ Download Sample File (54 genes, demo values)
+          </a>
+        </div>
+      </div>
+
+      <div class="predict-bar">
+        <button class="btn-predict" onclick="runGenomicFile()">
+          <span class="btn-icon">⚡</span> Run Genomic Prediction
+        </button>
+      </div>
+    </div>
+
+    <!-- MANUAL MODE -->
+    <div id="geno-mode-manual-panel" class="hidden">
+      <div class="card full-card">
+        <div class="gene-instructions">
+          <div class="instruction-box">
+            <div class="inst-icon">📋</div>
+            <div>
+              <strong>Manual gene expression entry:</strong>
+              <p>Enter <strong>normalized RNA-Seq expression values</strong> (RSEM/TPM) for each gene. Typical range 0–20. Use the Demo button to auto-fill realistic high-risk values.</p>
+            </div>
+          </div>
+        </div>
+        <div id="gene-inputs" class="gene-grid">
+          
+          <div class="gene-item">
+            <label class="gene-label">SHCBP1</label>
+            <input class="gene-input" id="g_SHCBP1" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">PLEKHA9</label>
+            <input class="gene-input" id="g_PLEKHA9" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">SPINLW1</label>
+            <input class="gene-input" id="g_SPINLW1" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">ZBED2</label>
+            <input class="gene-input" id="g_ZBED2" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">TMEM81</label>
+            <input class="gene-input" id="g_TMEM81" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">SLCO5A1</label>
+            <input class="gene-input" id="g_SLCO5A1" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">TMEM220</label>
+            <input class="gene-input" id="g_TMEM220" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">CDK1</label>
+            <input class="gene-input" id="g_CDK1" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">CDC20</label>
+            <input class="gene-input" id="g_CDC20" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">ITGAE</label>
+            <input class="gene-input" id="g_ITGAE" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">PRDM8</label>
+            <input class="gene-input" id="g_PRDM8" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">INHBE</label>
+            <input class="gene-input" id="g_INHBE" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">ACSS3</label>
+            <input class="gene-input" id="g_ACSS3" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">FKBP15</label>
+            <input class="gene-input" id="g_FKBP15" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">DRP2</label>
+            <input class="gene-input" id="g_DRP2" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">GOLGA8C</label>
+            <input class="gene-input" id="g_GOLGA8C" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">PPP2R2C</label>
+            <input class="gene-input" id="g_PPP2R2C" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">ATP7B</label>
+            <input class="gene-input" id="g_ATP7B" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">IL20RB</label>
+            <input class="gene-input" id="g_IL20RB" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">KIF2C</label>
+            <input class="gene-input" id="g_KIF2C" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">SLC31A1</label>
+            <input class="gene-input" id="g_SLC31A1" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">WFDC10B</label>
+            <input class="gene-input" id="g_WFDC10B" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">RTL1</label>
+            <input class="gene-input" id="g_RTL1" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">PPIAL4G</label>
+            <input class="gene-input" id="g_PPIAL4G" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">SSTR3</label>
+            <input class="gene-input" id="g_SSTR3" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">CCNA1</label>
+            <input class="gene-input" id="g_CCNA1" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">CCDC91</label>
+            <input class="gene-input" id="g_CCDC91" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">NFE2L3</label>
+            <input class="gene-input" id="g_NFE2L3" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">IMPA2</label>
+            <input class="gene-input" id="g_IMPA2" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">PAEP</label>
+            <input class="gene-input" id="g_PAEP" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">CDCA8</label>
+            <input class="gene-input" id="g_CDCA8" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">LIN7A</label>
+            <input class="gene-input" id="g_LIN7A" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">PITX2</label>
+            <input class="gene-input" id="g_PITX2" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">GFPT2</label>
+            <input class="gene-input" id="g_GFPT2" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">UBE2S</label>
+            <input class="gene-input" id="g_UBE2S" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">HLF</label>
+            <input class="gene-input" id="g_HLF" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">CDCA3</label>
+            <input class="gene-input" id="g_CDCA3" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">TMCC3</label>
+            <input class="gene-input" id="g_TMCC3" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">TRPV3</label>
+            <input class="gene-input" id="g_TRPV3" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">MOCOS</label>
+            <input class="gene-input" id="g_MOCOS" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">HN1</label>
+            <input class="gene-input" id="g_HN1" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">MBOAT7</label>
+            <input class="gene-input" id="g_MBOAT7" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">CPT2</label>
+            <input class="gene-input" id="g_CPT2" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">OR4C6</label>
+            <input class="gene-input" id="g_OR4C6" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">ENPP5</label>
+            <input class="gene-input" id="g_ENPP5" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">KRT79</label>
+            <input class="gene-input" id="g_KRT79" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">IL23A</label>
+            <input class="gene-input" id="g_IL23A" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">HSPC159</label>
+            <input class="gene-input" id="g_HSPC159" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">CALR</label>
+            <input class="gene-input" id="g_CALR" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">SOCS1</label>
+            <input class="gene-input" id="g_SOCS1" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">ZIC2</label>
+            <input class="gene-input" id="g_ZIC2" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">TNNT1</label>
+            <input class="gene-input" id="g_TNNT1" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">IGF2BP3</label>
+            <input class="gene-input" id="g_IGF2BP3" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">KIF23</label>
+            <input class="gene-input" id="g_KIF23" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+        </div>
+      </div>
+      <div class="predict-bar">
+        <button class="btn-predict" onclick="runGenomic()">
+          <span class="btn-icon">⚡</span> Run Genomic Prediction
+        </button>
+        <button class="btn-demo" onclick="fillGenomicDemo()">Load Demo Values</button>
+        <button class="btn-clear" onclick="clearGenomic()">Clear All</button>
+      </div>
+    </div>
+
+    <div id="result-genomic" class="result-panel hidden"></div>
+  </section>
+
+  <!-- ── TAB: IMAGING ── -->
+  <section id="tab-imaging" class="tab-panel hidden">
+    <div class="panel-header">
+      <div class="panel-icon">🫁</div>
+      <div>
+        <h2 class="panel-title">Model 3 · 3D Radiomic Imaging Predictor</h2>
+        <p class="panel-desc">Trained on <strong>TCGA-KIRC preoperative CT/MRI scans</strong>. Uses 49 PyRadiomics shape, intensity &amp; texture features extracted from tumour segmentation.</p>
+      </div>
+    </div>
+
+    <!-- Mode Switcher -->
+    <div class="mode-switcher">
+      <button class="mode-btn active" id="img-mode-nifti" onclick="setMode('imaging','nifti')">
+        <span>🫁</span> Upload CT Scan (NIfTI) <span class="mode-badge recommended">Real World</span>
+      </button>
+      <button class="mode-btn" id="img-mode-csv" onclick="setMode('imaging','csv')">
+        <span>📊</span> Upload Radiomics CSV
+      </button>
+      <button class="mode-btn" id="img-mode-manual" onclick="setMode('imaging','manual')">
+        <span>⌨️</span> Manual Entry
+      </button>
+    </div>
+
+    <!-- NIFTI UPLOAD MODE -->
+    <div id="img-mode-nifti-panel">
+      <div class="upload-card">
+        <div class="workflow-steps">
+          <div class="wf-step"><div class="wf-num">1</div><div class="wf-text"><strong>Upload CT Scan</strong><br/>Pre-operative NIfTI (.nii.gz)</div></div>
+          <div class="wf-arrow">→</div>
+          <div class="wf-step"><div class="wf-num">2</div><div class="wf-text"><strong>Upload Tumour Mask</strong><br/>Segmentation NIfTI (.nii.gz)</div></div>
+          <div class="wf-arrow">→</div>
+          <div class="wf-step"><div class="wf-num">3</div><div class="wf-text"><strong>Auto-extract Features</strong><br/>PyRadiomics runs server-side</div></div>
+          <div class="wf-arrow">→</div>
+          <div class="wf-step"><div class="wf-num">4</div><div class="wf-text"><strong>AI Prediction</strong><br/>XGBoost Model 3</div></div>
+        </div>
+
+        <div class="upload-pair">
+          <div class="upload-half">
+            <div class="upload-zone" id="ct-dropzone" onclick="document.getElementById('ct-file-input').click()" ondragover="dragOver(event)" ondrop="dropFile(event,'ct-file-input','ct-dropzone')">
+              <div class="upload-icon">🩻</div>
+              <div class="upload-title">CT Scan Image</div>
+              <div class="upload-sub">.nii or .nii.gz</div>
+              <input type="file" id="ct-file-input" accept=".nii,.nii.gz,.gz" style="display:none" onchange="handleFileSelect(this,'ct-dropzone','ct-filename')" />
+            </div>
+            <div id="ct-filename" class="file-name-display hidden"></div>
+          </div>
+          <div class="upload-half">
+            <div class="upload-zone" id="mask-dropzone" onclick="document.getElementById('mask-file-input').click()" ondragover="dragOver(event)" ondrop="dropFile(event,'mask-file-input','mask-dropzone')">
+              <div class="upload-icon">🎭</div>
+              <div class="upload-title">Tumour Segmentation Mask</div>
+              <div class="upload-sub">.nii or .nii.gz (binary mask)</div>
+              <input type="file" id="mask-file-input" accept=".nii,.nii.gz,.gz" style="display:none" onchange="handleFileSelect(this,'mask-dropzone','mask-filename')" />
+            </div>
+            <div id="mask-filename" class="file-name-display hidden"></div>
+          </div>
+        </div>
+
+        <div class="upload-formats-info">
+          <div class="format-info-item">
+            <strong>🩻 CT Scan:</strong> Pre-operative axial CT in NIfTI format. Can be exported from DICOM using dcm2niix.
+          </div>
+          <div class="format-info-item">
+            <strong>🎭 Tumour Mask:</strong> Binary segmentation where voxel=1 is tumour, voxel=0 is background. Compatible with nnUNet, TotalSegmentator, or manual ITK-SNAP segmentation.
+          </div>
+        </div>
+
+        <div class="upload-note">
+          ⚙️ PyRadiomics v3.1 will extract <strong>49 radiomic features</strong> from the tumour region. Processing typically takes 10–60 seconds depending on scan size.
+        </div>
+      </div>
+
+      <div class="predict-bar">
+        <button class="btn-predict" onclick="runImagingNifti()">
+          <span class="btn-icon">⚡</span> Extract Features &amp; Predict
+        </button>
+      </div>
+    </div>
+
+    <!-- CSV UPLOAD MODE -->
+    <div id="img-mode-csv-panel" class="hidden">
+      <div class="upload-card">
+        <div class="upload-zone" id="rad-dropzone" onclick="document.getElementById('rad-file-input').click()" ondragover="dragOver(event)" ondrop="dropFile(event,'rad-file-input','rad-dropzone')">
+          <div class="upload-icon">📊</div>
+          <div class="upload-title">Drop PyRadiomics Output CSV Here</div>
+          <div class="upload-sub">or click to browse — accepts CSV</div>
+          <input type="file" id="rad-file-input" accept=".csv,.tsv,.txt" style="display:none" onchange="handleFileSelect(this,'rad-dropzone','rad-filename')" />
+        </div>
+        <div id="rad-filename" class="file-name-display hidden"></div>
+
+        <div class="upload-formats-info">
+          <div class="format-info-item">
+            <strong>Format A (Recommended) — 2-column CSV:</strong>
+            <code>feature, value</code>
+            Each row is one PyRadiomics feature.
+          </div>
+          <div class="format-info-item">
+            <strong>Format B — PyRadiomics batch output:</strong>
+            Wide-format with feature names as column headers.
+          </div>
+        </div>
+        <div class="upload-actions">
+          <a href="/static/sample_radiomics_features.csv" download class="btn-download">
+            ⬇ Download Sample File (49 features, real TCGA-KIRC patient)
+          </a>
+        </div>
+      </div>
+      <div class="predict-bar">
+        <button class="btn-predict" onclick="runImagingCSV()">
+          <span class="btn-icon">⚡</span> Run Imaging Prediction
+        </button>
+      </div>
+    </div>
+
+    <!-- MANUAL MODE -->
+    <div id="img-mode-manual-panel" class="hidden">
+      <div class="card full-card">
+        <div class="gene-instructions">
+          <div class="instruction-box">
+            <div class="inst-icon">🔬</div>
+            <div>
+              <strong>Manual PyRadiomics feature entry:</strong>
+              <p>Enter the 49 radiomic features extracted from your tumour segmentation. Use the Demo button to load real values from a TCGA-KIRC patient with confirmed metastasis.</p>
+            </div>
+          </div>
+        </div>
+        <div id="radiomics-inputs" class="gene-grid">
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_shape_Elongation">shape Elongation</label>
+            <input class="gene-input" id="r_original_shape_Elongation" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_shape_Flatness">shape Flatness</label>
+            <input class="gene-input" id="r_original_shape_Flatness" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_shape_LeastAxisLength">shape LeastAxisLength</label>
+            <input class="gene-input" id="r_original_shape_LeastAxisLength" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_shape_MajorAxisLength">shape MajorAxisLength</label>
+            <input class="gene-input" id="r_original_shape_MajorAxisLength" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_shape_Maximum2DDiameterSlice">shape Maximum2DDiameterSlice</label>
+            <input class="gene-input" id="r_original_shape_Maximum2DDiameterSlice" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_shape_MeshVolume">shape MeshVolume</label>
+            <input class="gene-input" id="r_original_shape_MeshVolume" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_shape_MinorAxisLength">shape MinorAxisLength</label>
+            <input class="gene-input" id="r_original_shape_MinorAxisLength" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_shape_Sphericity">shape Sphericity</label>
+            <input class="gene-input" id="r_original_shape_Sphericity" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_shape_SurfaceVolumeRatio">shape SurfaceVolumeRatio</label>
+            <input class="gene-input" id="r_original_shape_SurfaceVolumeRatio" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_10Percentile">firstorder 10Percentile</label>
+            <input class="gene-input" id="r_original_firstorder_10Percentile" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_90Percentile">firstorder 90Percentile</label>
+            <input class="gene-input" id="r_original_firstorder_90Percentile" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_Energy">firstorder Energy</label>
+            <input class="gene-input" id="r_original_firstorder_Energy" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_Entropy">firstorder Entropy</label>
+            <input class="gene-input" id="r_original_firstorder_Entropy" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_InterquartileRange">firstorder InterquartileRange</label>
+            <input class="gene-input" id="r_original_firstorder_InterquartileRange" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_Kurtosis">firstorder Kurtosis</label>
+            <input class="gene-input" id="r_original_firstorder_Kurtosis" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_Maximum">firstorder Maximum</label>
+            <input class="gene-input" id="r_original_firstorder_Maximum" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_Minimum">firstorder Minimum</label>
+            <input class="gene-input" id="r_original_firstorder_Minimum" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_Skewness">firstorder Skewness</label>
+            <input class="gene-input" id="r_original_firstorder_Skewness" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_TotalEnergy">firstorder TotalEnergy</label>
+            <input class="gene-input" id="r_original_firstorder_TotalEnergy" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_Uniformity">firstorder Uniformity</label>
+            <input class="gene-input" id="r_original_firstorder_Uniformity" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_Variance">firstorder Variance</label>
+            <input class="gene-input" id="r_original_firstorder_Variance" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_ClusterProminence">glcm ClusterProminence</label>
+            <input class="gene-input" id="r_original_glcm_ClusterProminence" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_ClusterShade">glcm ClusterShade</label>
+            <input class="gene-input" id="r_original_glcm_ClusterShade" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_Contrast">glcm Contrast</label>
+            <input class="gene-input" id="r_original_glcm_Contrast" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_Correlation">glcm Correlation</label>
+            <input class="gene-input" id="r_original_glcm_Correlation" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_DifferenceAverage">glcm DifferenceAverage</label>
+            <input class="gene-input" id="r_original_glcm_DifferenceAverage" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_Idmn">glcm Idmn</label>
+            <input class="gene-input" id="r_original_glcm_Idmn" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_Idn">glcm Idn</label>
+            <input class="gene-input" id="r_original_glcm_Idn" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_Imc1">glcm Imc1</label>
+            <input class="gene-input" id="r_original_glcm_Imc1" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_Imc2">glcm Imc2</label>
+            <input class="gene-input" id="r_original_glcm_Imc2" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_InverseVariance">glcm InverseVariance</label>
+            <input class="gene-input" id="r_original_glcm_InverseVariance" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_JointAverage">glcm JointAverage</label>
+            <input class="gene-input" id="r_original_glcm_JointAverage" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_MCC">glcm MCC</label>
+            <input class="gene-input" id="r_original_glcm_MCC" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glrlm_GrayLevelNonUniformity">glrlm GrayLevelNonUniformity</label>
+            <input class="gene-input" id="r_original_glrlm_GrayLevelNonUniformity" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glrlm_LongRunEmphasis">glrlm LongRunEmphasis</label>
+            <input class="gene-input" id="r_original_glrlm_LongRunEmphasis" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glrlm_LongRunHighGrayLevelEmphasis">glrlm LongRunHighGrayLevelEmphasis</label>
+            <input class="gene-input" id="r_original_glrlm_LongRunHighGrayLevelEmphasis" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glrlm_LongRunLowGrayLevelEmphasis">glrlm LongRunLowGrayLevelEmphasis</label>
+            <input class="gene-input" id="r_original_glrlm_LongRunLowGrayLevelEmphasis" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glrlm_RunEntropy">glrlm RunEntropy</label>
+            <input class="gene-input" id="r_original_glrlm_RunEntropy" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glrlm_RunLengthNonUniformity">glrlm RunLengthNonUniformity</label>
+            <input class="gene-input" id="r_original_glrlm_RunLengthNonUniformity" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glszm_GrayLevelNonUniformity">glszm GrayLevelNonUniformity</label>
+            <input class="gene-input" id="r_original_glszm_GrayLevelNonUniformity" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glszm_GrayLevelNonUniformityNormalized">glszm GrayLevelNonUniformityNormalized</label>
+            <input class="gene-input" id="r_original_glszm_GrayLevelNonUniformityNormalized" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glszm_GrayLevelVariance">glszm GrayLevelVariance</label>
+            <input class="gene-input" id="r_original_glszm_GrayLevelVariance" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glszm_LargeAreaEmphasis">glszm LargeAreaEmphasis</label>
+            <input class="gene-input" id="r_original_glszm_LargeAreaEmphasis" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glszm_LargeAreaHighGrayLevelEmphasis">glszm LargeAreaHighGrayLevelEmphasis</label>
+            <input class="gene-input" id="r_original_glszm_LargeAreaHighGrayLevelEmphasis" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glszm_SizeZoneNonUniformity">glszm SizeZoneNonUniformity</label>
+            <input class="gene-input" id="r_original_glszm_SizeZoneNonUniformity" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glszm_SizeZoneNonUniformityNormalized">glszm SizeZoneNonUniformityNormalized</label>
+            <input class="gene-input" id="r_original_glszm_SizeZoneNonUniformityNormalized" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glszm_SmallAreaLowGrayLevelEmphasis">glszm SmallAreaLowGrayLevelEmphasis</label>
+            <input class="gene-input" id="r_original_glszm_SmallAreaLowGrayLevelEmphasis" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glszm_ZoneEntropy">glszm ZoneEntropy</label>
+            <input class="gene-input" id="r_original_glszm_ZoneEntropy" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glszm_ZonePercentage">glszm ZonePercentage</label>
+            <input class="gene-input" id="r_original_glszm_ZonePercentage" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+        </div>
+      </div>
+      <div class="predict-bar">
+        <button class="btn-predict" onclick="runImaging()">
+          <span class="btn-icon">⚡</span> Run Imaging Prediction
+        </button>
+        <button class="btn-demo" onclick="fillImagingDemo()">Load Demo Patient Scan</button>
+        <button class="btn-clear" onclick="clearImaging()">Clear All</button>
+      </div>
+    </div>
+
+    <div id="result-imaging" class="result-panel hidden"></div>
+  </section>
+
+  <!-- ── TAB: FUSION ── -->
+  <section id="tab-fusion" class="tab-panel hidden">
+    <div class="panel-header">
+      <div class="panel-icon">⚗️</div>
+      <div>
+        <h2 class="panel-title">3-Modality Late Fusion · Final Prediction</h2>
+        <p class="panel-desc">Combines all three modalities via F2-Weighted and Cascade Max fusion. This is the final, publishable framework achieving <strong>AUROC 0.797</strong>.</p>
+      </div>
+    </div>
+
+    <div class="fusion-tabs">
+      <button class="ftab active" onclick="activeFusionTab('f-clinical', event)">🏥 Clinical</button>
+      <button class="ftab" onclick="activeFusionTab('f-genomic', event)">🧬 Genomic</button>
+      <button class="ftab" onclick="activeFusionTab('f-imaging', event)">🫁 Imaging</button>
+    </div>
+
+    <!-- Fusion: Clinical -->
+    <div id="f-clinical" class="f-panel">
+      <div class="card-grid">
+        <div class="card">
+          <h3 class="card-title">Patient Demographics</h3>
+          <div class="form-group"><label>Age</label><input id="fc_age" type="number" value="65" /></div>
+          <div class="form-group"><label>Sex</label><select id="fc_sex"><option value="1">Male</option><option value="0">Female</option></select></div>
+          <div class="form-group"><label>Year of Diagnosis</label><input id="fc_year" type="number" value="2018" /></div>
+          <div class="form-group"><label>Prior Treatment</label><select id="fc_prior_tx"><option value="0">No</option><option value="1">Yes</option></select></div>
+        </div>
+        <div class="card">
+          <h3 class="card-title">Tumour Staging</h3>
+          <div class="form-group"><label>T Stage</label><select id="fc_t_stage"><option value="0">T1</option><option value="1">T1a</option><option value="2">T2</option><option value="3" selected>T3</option><option value="4">T4</option></select></div>
+          <div class="form-group"><label>N Stage</label><select id="fc_n_stage"><option value="0">N0</option><option value="1">N1</option></select></div>
+          <div class="form-group"><label>Tumour Size (cm)</label><input id="fc_tumor_size" type="number" step="0.1" value="7.5" /></div>
+        </div>
+        <div class="card">
+          <h3 class="card-title">Histopathology</h3>
+          <div class="form-group"><label>Grade</label><select id="fc_grade"><option value="0">Grade 1</option><option value="1">Grade 2</option><option value="2">Grade 3</option><option value="3" selected>Grade 3-4</option><option value="4">Grade 4</option></select></div>
+          <div class="form-group"><label>Histological Subtype</label><select id="fc_histology"><option value="0">Clear Cell RCC</option><option value="1">Papillary</option><option value="2">Chromophobe</option><option value="3">Other</option></select></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fusion: Genomic -->
+    <div id="f-genomic" class="f-panel hidden">
+      <div class="card full-card">
+        <p class="card-title">Gene Expression (54 ANOVA-Selected Genes) — use Demo to auto-fill</p>
+        <div id="fusion-gene-inputs" class="gene-grid">
+          
+          <div class="gene-item">
+            <label class="gene-label">SHCBP1</label>
+            <input class="gene-input" id="fg_SHCBP1" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">PLEKHA9</label>
+            <input class="gene-input" id="fg_PLEKHA9" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">SPINLW1</label>
+            <input class="gene-input" id="fg_SPINLW1" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">ZBED2</label>
+            <input class="gene-input" id="fg_ZBED2" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">TMEM81</label>
+            <input class="gene-input" id="fg_TMEM81" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">SLCO5A1</label>
+            <input class="gene-input" id="fg_SLCO5A1" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">TMEM220</label>
+            <input class="gene-input" id="fg_TMEM220" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">CDK1</label>
+            <input class="gene-input" id="fg_CDK1" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">CDC20</label>
+            <input class="gene-input" id="fg_CDC20" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">ITGAE</label>
+            <input class="gene-input" id="fg_ITGAE" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">PRDM8</label>
+            <input class="gene-input" id="fg_PRDM8" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">INHBE</label>
+            <input class="gene-input" id="fg_INHBE" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">ACSS3</label>
+            <input class="gene-input" id="fg_ACSS3" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">FKBP15</label>
+            <input class="gene-input" id="fg_FKBP15" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">DRP2</label>
+            <input class="gene-input" id="fg_DRP2" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">GOLGA8C</label>
+            <input class="gene-input" id="fg_GOLGA8C" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">PPP2R2C</label>
+            <input class="gene-input" id="fg_PPP2R2C" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">ATP7B</label>
+            <input class="gene-input" id="fg_ATP7B" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">IL20RB</label>
+            <input class="gene-input" id="fg_IL20RB" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">KIF2C</label>
+            <input class="gene-input" id="fg_KIF2C" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">SLC31A1</label>
+            <input class="gene-input" id="fg_SLC31A1" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">WFDC10B</label>
+            <input class="gene-input" id="fg_WFDC10B" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">RTL1</label>
+            <input class="gene-input" id="fg_RTL1" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">PPIAL4G</label>
+            <input class="gene-input" id="fg_PPIAL4G" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">SSTR3</label>
+            <input class="gene-input" id="fg_SSTR3" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">CCNA1</label>
+            <input class="gene-input" id="fg_CCNA1" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">CCDC91</label>
+            <input class="gene-input" id="fg_CCDC91" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">NFE2L3</label>
+            <input class="gene-input" id="fg_NFE2L3" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">IMPA2</label>
+            <input class="gene-input" id="fg_IMPA2" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">PAEP</label>
+            <input class="gene-input" id="fg_PAEP" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">CDCA8</label>
+            <input class="gene-input" id="fg_CDCA8" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">LIN7A</label>
+            <input class="gene-input" id="fg_LIN7A" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">PITX2</label>
+            <input class="gene-input" id="fg_PITX2" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">GFPT2</label>
+            <input class="gene-input" id="fg_GFPT2" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">UBE2S</label>
+            <input class="gene-input" id="fg_UBE2S" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">HLF</label>
+            <input class="gene-input" id="fg_HLF" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">CDCA3</label>
+            <input class="gene-input" id="fg_CDCA3" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">TMCC3</label>
+            <input class="gene-input" id="fg_TMCC3" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">TRPV3</label>
+            <input class="gene-input" id="fg_TRPV3" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">MOCOS</label>
+            <input class="gene-input" id="fg_MOCOS" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">HN1</label>
+            <input class="gene-input" id="fg_HN1" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">MBOAT7</label>
+            <input class="gene-input" id="fg_MBOAT7" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">CPT2</label>
+            <input class="gene-input" id="fg_CPT2" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">OR4C6</label>
+            <input class="gene-input" id="fg_OR4C6" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">ENPP5</label>
+            <input class="gene-input" id="fg_ENPP5" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">KRT79</label>
+            <input class="gene-input" id="fg_KRT79" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">IL23A</label>
+            <input class="gene-input" id="fg_IL23A" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">HSPC159</label>
+            <input class="gene-input" id="fg_HSPC159" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">CALR</label>
+            <input class="gene-input" id="fg_CALR" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">SOCS1</label>
+            <input class="gene-input" id="fg_SOCS1" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">ZIC2</label>
+            <input class="gene-input" id="fg_ZIC2" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">TNNT1</label>
+            <input class="gene-input" id="fg_TNNT1" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">IGF2BP3</label>
+            <input class="gene-input" id="fg_IGF2BP3" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label">KIF23</label>
+            <input class="gene-input" id="fg_KIF23" type="number" step="0.01" value="0" placeholder="0.00" />
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Fusion: Imaging -->
+    <div id="f-imaging" class="f-panel hidden">
+      <div class="card full-card">
+        <p class="card-title">PyRadiomics Features (49 Shape/Texture Features) — use Demo to auto-fill</p>
+        <div id="fusion-radiomics-inputs" class="gene-grid">
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_shape_Elongation">shape Elongation</label>
+            <input class="gene-input" id="fr_original_shape_Elongation" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_shape_Flatness">shape Flatness</label>
+            <input class="gene-input" id="fr_original_shape_Flatness" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_shape_LeastAxisLength">shape LeastAxisLength</label>
+            <input class="gene-input" id="fr_original_shape_LeastAxisLength" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_shape_MajorAxisLength">shape MajorAxisLength</label>
+            <input class="gene-input" id="fr_original_shape_MajorAxisLength" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_shape_Maximum2DDiameterSlice">shape Maximum2DDiameterSlice</label>
+            <input class="gene-input" id="fr_original_shape_Maximum2DDiameterSlice" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_shape_MeshVolume">shape MeshVolume</label>
+            <input class="gene-input" id="fr_original_shape_MeshVolume" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_shape_MinorAxisLength">shape MinorAxisLength</label>
+            <input class="gene-input" id="fr_original_shape_MinorAxisLength" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_shape_Sphericity">shape Sphericity</label>
+            <input class="gene-input" id="fr_original_shape_Sphericity" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_shape_SurfaceVolumeRatio">shape SurfaceVolumeRatio</label>
+            <input class="gene-input" id="fr_original_shape_SurfaceVolumeRatio" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_10Percentile">firstorder 10Percentile</label>
+            <input class="gene-input" id="fr_original_firstorder_10Percentile" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_90Percentile">firstorder 90Percentile</label>
+            <input class="gene-input" id="fr_original_firstorder_90Percentile" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_Energy">firstorder Energy</label>
+            <input class="gene-input" id="fr_original_firstorder_Energy" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_Entropy">firstorder Entropy</label>
+            <input class="gene-input" id="fr_original_firstorder_Entropy" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_InterquartileRange">firstorder InterquartileRange</label>
+            <input class="gene-input" id="fr_original_firstorder_InterquartileRange" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_Kurtosis">firstorder Kurtosis</label>
+            <input class="gene-input" id="fr_original_firstorder_Kurtosis" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_Maximum">firstorder Maximum</label>
+            <input class="gene-input" id="fr_original_firstorder_Maximum" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_Minimum">firstorder Minimum</label>
+            <input class="gene-input" id="fr_original_firstorder_Minimum" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_Skewness">firstorder Skewness</label>
+            <input class="gene-input" id="fr_original_firstorder_Skewness" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_TotalEnergy">firstorder TotalEnergy</label>
+            <input class="gene-input" id="fr_original_firstorder_TotalEnergy" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_Uniformity">firstorder Uniformity</label>
+            <input class="gene-input" id="fr_original_firstorder_Uniformity" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_firstorder_Variance">firstorder Variance</label>
+            <input class="gene-input" id="fr_original_firstorder_Variance" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_ClusterProminence">glcm ClusterProminence</label>
+            <input class="gene-input" id="fr_original_glcm_ClusterProminence" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_ClusterShade">glcm ClusterShade</label>
+            <input class="gene-input" id="fr_original_glcm_ClusterShade" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_Contrast">glcm Contrast</label>
+            <input class="gene-input" id="fr_original_glcm_Contrast" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_Correlation">glcm Correlation</label>
+            <input class="gene-input" id="fr_original_glcm_Correlation" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_DifferenceAverage">glcm DifferenceAverage</label>
+            <input class="gene-input" id="fr_original_glcm_DifferenceAverage" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_Idmn">glcm Idmn</label>
+            <input class="gene-input" id="fr_original_glcm_Idmn" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_Idn">glcm Idn</label>
+            <input class="gene-input" id="fr_original_glcm_Idn" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_Imc1">glcm Imc1</label>
+            <input class="gene-input" id="fr_original_glcm_Imc1" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_Imc2">glcm Imc2</label>
+            <input class="gene-input" id="fr_original_glcm_Imc2" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_InverseVariance">glcm InverseVariance</label>
+            <input class="gene-input" id="fr_original_glcm_InverseVariance" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_JointAverage">glcm JointAverage</label>
+            <input class="gene-input" id="fr_original_glcm_JointAverage" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glcm_MCC">glcm MCC</label>
+            <input class="gene-input" id="fr_original_glcm_MCC" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glrlm_GrayLevelNonUniformity">glrlm GrayLevelNonUniformity</label>
+            <input class="gene-input" id="fr_original_glrlm_GrayLevelNonUniformity" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glrlm_LongRunEmphasis">glrlm LongRunEmphasis</label>
+            <input class="gene-input" id="fr_original_glrlm_LongRunEmphasis" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glrlm_LongRunHighGrayLevelEmphasis">glrlm LongRunHighGrayLevelEmphasis</label>
+            <input class="gene-input" id="fr_original_glrlm_LongRunHighGrayLevelEmphasis" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glrlm_LongRunLowGrayLevelEmphasis">glrlm LongRunLowGrayLevelEmphasis</label>
+            <input class="gene-input" id="fr_original_glrlm_LongRunLowGrayLevelEmphasis" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glrlm_RunEntropy">glrlm RunEntropy</label>
+            <input class="gene-input" id="fr_original_glrlm_RunEntropy" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glrlm_RunLengthNonUniformity">glrlm RunLengthNonUniformity</label>
+            <input class="gene-input" id="fr_original_glrlm_RunLengthNonUniformity" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glszm_GrayLevelNonUniformity">glszm GrayLevelNonUniformity</label>
+            <input class="gene-input" id="fr_original_glszm_GrayLevelNonUniformity" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glszm_GrayLevelNonUniformityNormalized">glszm GrayLevelNonUniformityNormalized</label>
+            <input class="gene-input" id="fr_original_glszm_GrayLevelNonUniformityNormalized" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glszm_GrayLevelVariance">glszm GrayLevelVariance</label>
+            <input class="gene-input" id="fr_original_glszm_GrayLevelVariance" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glszm_LargeAreaEmphasis">glszm LargeAreaEmphasis</label>
+            <input class="gene-input" id="fr_original_glszm_LargeAreaEmphasis" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glszm_LargeAreaHighGrayLevelEmphasis">glszm LargeAreaHighGrayLevelEmphasis</label>
+            <input class="gene-input" id="fr_original_glszm_LargeAreaHighGrayLevelEmphasis" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glszm_SizeZoneNonUniformity">glszm SizeZoneNonUniformity</label>
+            <input class="gene-input" id="fr_original_glszm_SizeZoneNonUniformity" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glszm_SizeZoneNonUniformityNormalized">glszm SizeZoneNonUniformityNormalized</label>
+            <input class="gene-input" id="fr_original_glszm_SizeZoneNonUniformityNormalized" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glszm_SmallAreaLowGrayLevelEmphasis">glszm SmallAreaLowGrayLevelEmphasis</label>
+            <input class="gene-input" id="fr_original_glszm_SmallAreaLowGrayLevelEmphasis" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glszm_ZoneEntropy">glszm ZoneEntropy</label>
+            <input class="gene-input" id="fr_original_glszm_ZoneEntropy" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+          <div class="gene-item">
+            <label class="gene-label" title="original_glszm_ZonePercentage">glszm ZonePercentage</label>
+            <input class="gene-input" id="fr_original_glszm_ZonePercentage" type="number" step="0.0001" value="0" placeholder="0.0000" />
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="predict-bar">
+      <button class="btn-predict btn-gold" onclick="runFusion()">
+        <span class="btn-icon">🔮</span> Run 3-Modality Fusion Prediction
+      </button>
+      <button class="btn-demo" onclick="fillFusionDemo()">Load Demo Patient (All Modalities)</button>
+    </div>
+
+    <div id="result-fusion" class="result-panel hidden"></div>
+  </section>
+
+</main>
+
+<!-- ═══════════ FOOTER INFO ═══════════ -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-block">
+      <h4>Model Performance</h4>
+      <table class="footer-table">
+        <tr><th>Modality</th><th>AUROC</th><th>Recall</th><th>F2</th></tr>
+        <tr><td>Clinical (SEER)</td><td>0.770</td><td>62.1%</td><td>0.378</td></tr>
+        <tr><td>Genomic (TCGA)</td><td>0.738</td><td>94.4%</td><td>0.574</td></tr>
+        <tr><td>Imaging (TCGA)</td><td>0.638</td><td>100%</td><td>0.479</td></tr>
+        <tr class="highlight-row"><td>Fusion B (F2-Weighted)</td><td>0.797</td><td>88.9%</td><td>0.593</td></tr>
+        <tr class="highlight-row"><td>Fusion D (Cascade Max)</td><td>0.738</td><td>66.7%</td><td>0.566</td></tr>
+      </table>
+    </div>
+    <div class="footer-block">
+      <h4>Datasets Used</h4>
+      <ul class="footer-list">
+        <li>🏥 <strong>SEER</strong> — 36,738 RCC patients (Clinical)</li>
+        <li>🧬 <strong>TCGA-KIRC</strong> — 418 RNA-Seq samples (Genomic)</li>
+        <li>🫁 <strong>TCIA / TCGA-KIRC</strong> — 159 preoperative CTs (Imaging)</li>
+        <li>🔗 <strong>Fusion Cohort</strong> — 126-patient inner join</li>
+      </ul>
+    </div>
+    <div class="footer-block">
+      <h4>Clinical Note</h4>
+      <p class="footer-note">This tool is for <strong>research and academic purposes only</strong>. All predictions are generated by models trained on publicly available datasets. The F2-optimized framework penalizes False Negatives 4× more than False Positives, aligned with the clinical priority of <em>never missing metastasis</em>. Not for clinical diagnosis.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Loading Overlay -->
+<div id="loading" class="loading-overlay" style="display:none">
+  <div class="spinner"></div>
+  <p>Running AI inference…</p>
+</div>
+
+<script src="/static/app.js?v=3"></script>
+</body>
+</html>
