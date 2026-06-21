@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>🔬 RCC·AI</h1>
+  <h1>🔬 RenoFusion</h1>
   <h3>A Decision-Level Fusion Framework for Predicting Distant Metastasis in Renal Cell Carcinoma Using Clinical, Transcriptomic, and Radiomic Biomarkers</h3>
 
   <p align="center">
@@ -23,14 +23,14 @@ Renal Cell Carcinoma (RCC) is the most common type of kidney cancer. Approximate
 
 Currently, metastasis risk is evaluated using clinical nomograms (like SSIGN or UISS), which rely solely on low-dimensional clinical factors (tumour size, grade, necrosis). They completely ignore the rich molecular (transcriptomic) and spatial (radiomic) biology of the tumour, leading to a high rate of missed early metastases (False Negatives). Missing a metastasis in RCC is a potentially fatal clinical error.
 
-## 💡 2. The Solution: RCC·AI
+## 💡 2. The Solution: RenoFusion
 
-**RCC·AI** is a comprehensive clinical decision support system designed to predict distant metastasis in RCC by leveraging **decision-level late fusion** across three disparate biological scales:
+**RenoFusion** is a comprehensive clinical decision support system designed to predict distant metastasis in RCC by leveraging **decision-level late fusion** across three disparate biological scales:
 1. **Population-Scale Clinical Factors** (Demographics, Staging, Pathology)
 2. **Molecular-Scale Genomics** (RNA-Seq Transcriptomics)
 3. **Macro-Scale Radiomics** (3D CT Scan Textures and Morphologies)
 
-Instead of relying on a single modality, RCC·AI trains independent, highly specialized AI models for each modality. It then fuses their probability outputs to create a highly sensitive, multimodal safety net that ensures high-risk patients are not missed.
+Instead of relying on a single modality, RenoFusion trains independent, highly specialized AI models for each modality. It then fuses their probability outputs to create a highly sensitive, multimodal safety net that ensures high-risk patients are not missed.
 
 ## 🎯 3. Project Objectives
 
