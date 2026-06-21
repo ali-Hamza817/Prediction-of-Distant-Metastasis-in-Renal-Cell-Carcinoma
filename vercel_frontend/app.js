@@ -122,11 +122,13 @@ async function runClinical() {
 }
 
 // removed siteRiskArrow function
+const lungSVG = '<svg width="1.2em" height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:text-bottom"><path d="M12 2v6"/><path d="M8 12c-1.5-1-4-1-4 3s2.5 6 4 6 2-2 2-4V8c0-1.5 1-2.5 2-2.5"/><path d="M16 12c1.5-1 4-1 4 3s-2.5 6-4 6-2-2-2-4V8c0-1.5-1-2.5-2-2.5"/></svg>';
+
 function renderClinicalResult(d) {
   const el = document.getElementById('result-clinical');
   el.classList.remove('hidden');
 
-  const siteEmoji  = { lung: '🫁', bone: '🦴', liver: '🩸', brain: '🧠' };
+  const siteEmoji  = { lung: lungSVG, bone: '🦴', liver: '🩸', brain: '🧠' };
   const siteProbMap = { lung: d.lung, bone: d.bone, liver: d.liver, brain: d.brain };
 
   let sitesHTML = Object.entries(siteProbMap).map(([site, p]) => `
@@ -323,7 +325,7 @@ function renderImagingResult(d) {
   el.classList.remove('hidden');
   el.innerHTML = `
     <div class="result-header">
-      <div class="result-title">🫁 Imaging Model — 3D PyRadiomics Prediction</div>
+      <div class="result-title">☢️ Imaging Model — 3D PyRadiomics Prediction</div>
       <div class="risk-badge ${d.risk_class}">${d.risk} · AUROC 0.638</div>
     </div>
     <div class="prob-grid">
@@ -423,7 +425,7 @@ function renderFusionResult(d) {
       <h4 style="font-size:13px; color:var(--text3); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px;">Base Model Risk Scores</h4>
       ${probBar('🏥 Model 1: Clinical (SEER)', d.model1_overall, 'AUROC 0.770')}
       ${probBar('🧬 Model 2: Genomic (TCGA)', d.model2, 'AUROC 0.738 · Recall 94.4%')}
-      ${probBar('🫁 Model 3: Imaging (TCGA)', d.model3, 'AUROC 0.638 · Recall 100%')}
+      ${probBar('☢️ Model 3: Imaging (TCGA)', d.model3, 'AUROC 0.638 · Recall 100%')}
     </div>
 
     <div class="fusion-result-grid" style="margin-top:28px;">
@@ -467,7 +469,7 @@ function renderFusionResult(d) {
         </div>
       </div>
       <div class="site-grid">
-        ${[['🫁','Lung',d.model1_lung],['🦴','Bone',d.model1_bone],['🩸','Liver',d.model1_liver],['🧠','Brain',d.model1_brain]].map(([icon,name,p])=>`
+        ${[[lungSVG,'Lung',d.model1_lung],['🦴','Bone',d.model1_bone],['🩸','Liver',d.model1_liver],['🧠','Brain',d.model1_brain]].map(([icon,name,p])=>`
           <div class="site-card">
             <div class="site-icon">${icon}</div>
             <div class="site-name">${name}</div>
@@ -653,7 +655,7 @@ function renderImagingFileResult(d, source, note) {
   el.classList.remove('hidden');
   el.innerHTML = `
     <div class="result-header">
-      <div class="result-title">🫁 Imaging Model — ${source}</div>
+      <div class="result-title">☢️ Imaging Model — ${source}</div>
       <div class="risk-badge ${d.risk_class}">${d.risk} · AUROC 0.638</div>
     </div>
     <div class="prob-grid">
