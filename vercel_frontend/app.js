@@ -365,27 +365,45 @@ function fillFusionDemo() {
 }
 
 async function runFusion() {
-  const clinical = {
-    age:           parseFloat(document.getElementById('fc_age').value),
-    sex:           parseInt(document.getElementById('fc_sex').value),
-    t_stage:       parseInt(document.getElementById('fc_t_stage').value),
-    n_stage:       parseInt(document.getElementById('fc_n_stage').value),
-    tumor_size_cm: parseFloat(document.getElementById('fc_tumor_size').value),
-    grade:         parseInt(document.getElementById('fc_grade').value),
-    histology_enc: parseInt(document.getElementById('fc_histology').value),
-    prior_tx:      parseInt(document.getElementById('fc_prior_tx').value),
-    year_diagnosis:parseInt(document.getElementById('fc_year').value),
-  };
+  const useClin = document.getElementById('enable_clinical').checked;
+  const useGeno = document.getElementById('enable_genomic').checked;
+  const useImag = document.getElementById('enable_imaging').checked;
 
-  const genomic = {};
-  document.querySelectorAll('#f-genomic .gene-input').forEach(el => {
-    genomic[el.id.replace('fg_', '')] = parseFloat(el.value) || 0;
-  });
+  if (!useClin && !useGeno && !useImag) {
+    alert("Please select at least one modality for fusion.");
+    return;
+  }
 
-  const imaging = {};
-  document.querySelectorAll('#f-imaging .gene-input').forEach(el => {
-    imaging[el.id.replace('fr_', '')] = parseFloat(el.value) || 0;
-  });
+  let clinical = null;
+  if (useClin) {
+    clinical = {
+      age:           parseFloat(document.getElementById('fc_age').value),
+      sex:           parseInt(document.getElementById('fc_sex').value),
+      t_stage:       parseInt(document.getElementById('fc_t_stage').value),
+      n_stage:       parseInt(document.getElementById('fc_n_stage').value),
+      tumor_size_cm: parseFloat(document.getElementById('fc_tumor_size').value),
+      grade:         parseInt(document.getElementById('fc_grade').value),
+      histology_enc: parseInt(document.getElementById('fc_histology').value),
+      prior_tx:      parseInt(document.getElementById('fc_prior_tx').value),
+      year_diagnosis:parseInt(document.getElementById('fc_year').value),
+    };
+  }
+
+  let genomic = null;
+  if (useGeno) {
+    genomic = {};
+    document.querySelectorAll('#f-genomic .gene-input').forEach(el => {
+      genomic[el.id.replace('fg_', '')] = parseFloat(el.value) || 0;
+    });
+  }
+
+  let imaging = null;
+  if (useImag) {
+    imaging = {};
+    document.querySelectorAll('#f-imaging .gene-input').forEach(el => {
+      imaging[el.id.replace('fr_', '')] = parseFloat(el.value) || 0;
+    });
+  }
 
   showLoading();
   try {
@@ -415,17 +433,16 @@ function renderFusionResult(d) {
       <div class="risk-badge ${d.final_risk_class}">⬡ ${d.final_verdict}</div>
     </div>
     <div class="model-info-chips">
-      <span class="info-chip">★ Best AUROC 0.797</span>
-      <span class="info-chip">Fusion B: F2-Weighted Average</span>
-      <span class="info-chip">126-patient Strict Inner Join</span>
-      <span class="info-chip">Zero Data Leakage</span>
+      <span class="info-chip">★ ${d.modality_count}-Modality Fusion Result</span>
+      <span class="info-chip">Fusion B: Dynamically Weighted Average</span>
+      <span class="info-chip">Missing-Modality Tolerant</span>
     </div>
 
     <div class="prob-grid">
       <h4 style="font-size:13px; color:var(--text3); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px;">Base Model Risk Scores</h4>
-      ${probBar('🏥 Model 1: Clinical (SEER)', d.model1_overall, 'AUROC 0.770')}
-      ${probBar('🧬 Model 2: Genomic (TCGA)', d.model2, 'AUROC 0.738 · Recall 94.4%')}
-      ${probBar('☢️ Model 3: Imaging (TCGA)', d.model3, 'AUROC 0.638 · Recall 100%')}
+      ${d.model1_overall !== null ? probBar('🏥 Model 1: Clinical (SEER)', d.model1_overall, 'AUROC 0.770') : ''}
+      ${d.model2 !== null ? probBar('🧬 Model 2: Genomic (TCGA)', d.model2, 'AUROC 0.738 · Recall 94.4%') : ''}
+      ${d.model3 !== null ? probBar('☢️ Model 3: Imaging (TCGA)', d.model3, 'AUROC 0.638 · Recall 100%') : ''}
     </div>
 
     <div class="fusion-result-grid" style="margin-top:28px;">
@@ -456,7 +473,7 @@ function renderFusionResult(d) {
         </div>
       </div>
     </details>
-
+    ${d.model1_overall !== null ? `
     <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--border);">
       <div class="site-section-header">
         <span>Site-Specific Risk Indices (Clinical Modality)</span>
@@ -476,9 +493,9 @@ function renderFusionResult(d) {
             <div class="site-prob ${riskCls(p)}" style="font-size:20px; font-weight:800; margin-top:8px;">${pctLabel(p)}</div>
           </div>`).join('')}
       </div>
-    </div>
+    </div>` : ''}
     <p style="margin-top:16px; font-size:12px; color:var(--text3)">
-      126-patient TCGA fusion cohort (strict inner join) · Zero data leakage · Nested CV throughout
+      Flexible dynamic fusion · Missing-modality tolerant architecture
     </p>`;
 }
 

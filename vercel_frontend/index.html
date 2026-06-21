@@ -909,6 +909,19 @@
       <button class="ftab" onclick="activeFusionTab('f-imaging', event)">☢️ Imaging</button>
     </div>
 
+    <div style="display:flex; gap:20px; justify-content:center; margin-bottom:20px; background:var(--bg3); padding:16px; border-radius:var(--radius); border:1px solid var(--border);">
+      <div style="font-size:14px; color:var(--text2); font-weight:600; margin-right:10px;">Select Available Data:</div>
+      <label style="cursor:pointer; display:flex; align-items:center; gap:6px;">
+        <input type="checkbox" id="enable_clinical" checked style="accent-color:var(--accent);"> 🏥 Clinical
+      </label>
+      <label style="cursor:pointer; display:flex; align-items:center; gap:6px;">
+        <input type="checkbox" id="enable_genomic" checked style="accent-color:var(--accent);"> 🧬 Genomic
+      </label>
+      <label style="cursor:pointer; display:flex; align-items:center; gap:6px;">
+        <input type="checkbox" id="enable_imaging" checked style="accent-color:var(--accent);"> ☢️ Imaging
+      </label>
+    </div>
+
     <!-- Fusion: Clinical -->
     <div id="f-clinical" class="f-panel">
       <div class="card-grid">

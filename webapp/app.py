@@ -79,11 +79,23 @@ def predict_model3(data):
     return float(model3_booster.predict(dmat)[0])
 
 def compute_fusions(p1, p2, p3):
-    w1, w2, w3 = 0.6250, 0.5743, 0.4787
+    available = {}
+    if p1 is not None: available['clinical'] = (p1, 0.6250)
+    if p2 is not None: available['genomic']  = (p2, 0.5743)
+    if p3 is not None: available['imaging']  = (p3, 0.4787)
+    
+    if not available:
+        raise ValueError("No modalities provided for fusion.")
+
+    probs = [p for p, w in available.values()]
+    total_w = sum(w for p, w in available.values())
+    
     return {
-        "fusion_a_simple_avg":  round((p1 + p2 + p3) / 3.0, 4),
-        "fusion_b_f2_weighted": round((w1*p1 + w2*p2 + w3*p3) / (w1+w2+w3), 4),
-        "fusion_d_cascade_max": round(max(p1, p2, p3), 4),
+        "fusion_a_simple_avg":  round(sum(probs) / len(probs), 4),
+        "fusion_b_f2_weighted": round(sum(p * w for p, w in available.values()) / total_w, 4),
+        "fusion_d_cascade_max": round(max(probs), 4),
+        "modalities_used": list(available.keys()),
+        "modality_count": len(available)
     }
 
 def risk_label(p): return "High Risk" if p >= 0.5 else "Moderate Risk" if p >= 0.25 else "Low Risk"
@@ -142,17 +154,28 @@ def predict_imaging():
 def predict_fusion():
     try:
         body    = request.get_json()
-        clin    = body.get("clinical", {})
-        genomic = body.get("genomic", {})
-        imaging = body.get("imaging", {})
-        p1_overall, lung, bone, liver, brain = predict_model1(clin)
-        p2 = predict_model2(genomic)
-        p3 = predict_model3(imaging)
+        clin    = body.get("clinical")
+        genomic = body.get("genomic")
+        imaging = body.get("imaging")
+        
+        if clin:
+            p1_overall, lung, bone, liver, brain = predict_model1(clin)
+        else:
+            p1_overall = lung = bone = liver = brain = None
+            
+        p2 = predict_model2(genomic) if genomic else None
+        p3 = predict_model3(imaging) if imaging else None
+
         fusions = compute_fusions(p1_overall, p2, p3)
         return jsonify({
-            "model1_overall": round(p1_overall,4), "model1_lung": round(lung,4),
-            "model1_bone": round(bone,4), "model1_liver": round(liver,4), "model1_brain": round(brain,4),
-            "model2": round(p2,4), "model3": round(p3,4), **fusions,
+            "model1_overall": round(p1_overall,4) if p1_overall is not None else None,
+            "model1_lung": round(lung,4) if lung is not None else None,
+            "model1_bone": round(bone,4) if bone is not None else None,
+            "model1_liver": round(liver,4) if liver is not None else None,
+            "model1_brain": round(brain,4) if brain is not None else None,
+            "model2": round(p2,4) if p2 is not None else None,
+            "model3": round(p3,4) if p3 is not None else None,
+            **fusions,
             "final_verdict": risk_label(fusions["fusion_b_f2_weighted"]),
             "final_risk_class": risk_class(fusions["fusion_b_f2_weighted"]),
         })
