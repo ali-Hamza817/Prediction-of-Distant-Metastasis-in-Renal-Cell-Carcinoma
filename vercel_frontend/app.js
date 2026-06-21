@@ -38,6 +38,26 @@ function activeFusionTab(id, e) {
   if (e && e.currentTarget) e.currentTarget.classList.add('active');
 }
 
+function toggleModalityTab(mod) {
+  const isChecked = document.getElementById('enable_' + mod).checked;
+  const tabBtn = document.getElementById('ftab-' + mod);
+  if (tabBtn) {
+    if (isChecked) {
+      tabBtn.style.display = 'inline-block';
+    } else {
+      tabBtn.style.display = 'none';
+      if (tabBtn.classList.contains('active')) {
+        const visibleTabs = Array.from(document.querySelectorAll('.fusion-tabs .ftab')).filter(b => b.style.display !== 'none');
+        if (visibleTabs.length > 0) {
+          visibleTabs[0].click();
+        } else {
+          document.querySelectorAll('.f-panel').forEach(p => p.classList.add('hidden'));
+        }
+      }
+    }
+  }
+}
+
 /* ── Loading ── */
 function showLoading() {
   const el = document.getElementById('loading');
