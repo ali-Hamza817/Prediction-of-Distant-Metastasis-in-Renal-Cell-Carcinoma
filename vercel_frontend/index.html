@@ -924,11 +924,11 @@
           </label>
         </div>
 
-        <button class="btn-predict btn-gold" onclick="runFusion()" style="width:100%; margin-bottom:10px;">
+        <button class="btn-predict btn-gold" onclick="runFusion()" style="width:100%; height: 60px; margin-bottom:10px; display:flex; justify-content:center; align-items:center; text-align:center;">
           <span class="btn-icon">🔮</span> Predict Metastasis
         </button>
-        <button class="btn-demo" onclick="fillFusionDemo()" style="width:100%; margin-bottom:10px;">Load Real Patient</button>
-        <button class="btn-demo" style="border: 1px solid var(--error); color: var(--error); width:100%;" onclick="clearFusionResults()">🗑️ Clear Results</button>
+        <button class="btn-demo" onclick="fillFusionDemo()" style="width:100%; height: 50px; margin-bottom:10px; display:flex; justify-content:center; align-items:center; text-align:center;">Load Real Patient</button>
+        <button class="btn-demo" style="border: 1px solid var(--error); color: var(--error); width:100%; height: 50px; display:flex; justify-content:center; align-items:center; text-align:center;" onclick="clearFusionResults()">🗑️ Clear Results</button>
       </div>
 
       <div class="fusion-content">
@@ -1250,8 +1250,8 @@
                   <li><strong>Stage 2 (Segmenter):</strong> AI automatically segments the tumour and extracts 49 PyRadiomics features.</li>
                 </ul>
                 <div style="display:flex; flex-direction:column; gap:12px; align-items:center; justify-content: center;">
-                  <input type="file" id="fusion-ct-upload" accept=".nii,.nii.gz" style="padding:8px; background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); color:var(--text); width: 100%;" />
-                  <button class="btn btn-primary" onclick="uploadCTForAutoSegment()" style="white-space:nowrap; width: 100%;">Run AI Pipeline</button>
+                  <input type="file" id="fusion-ct-upload" accept=".nii,.nii.gz" style="padding:16px; background:var(--bg2); border:2px dashed var(--accent); border-radius:var(--radius); color:var(--text); width: 100%; height: 60px; display: flex; align-items: center; justify-content: center; text-align: center; cursor: pointer;" />
+                  <button class="btn btn-primary" onclick="uploadCTForAutoSegment()" style="white-space:nowrap; width: 100%; height: 60px; font-size: 16px; font-weight: bold; background: linear-gradient(135deg, #ff007f, #7f00ff); border: none; color: white; display: flex; align-items: center; justify-content: center; text-align: center; box-shadow: 0 4px 15px rgba(255, 0, 127, 0.4);">🚀 Run AI Pipeline</button>
                 </div>
                 <div id="auto-segment-status" style="margin-top:12px; font-size:13px; color:var(--text2); text-align: center;"></div>
           </div>
@@ -1563,6 +1563,12 @@
   import { Niivue } from "https://niivue.github.io/niivue/features/niivue.es.js";
   window.nv = new Niivue({ backColor: [0, 0, 0, 1] });
   window.nv.attachTo("gl");
+  
+  // Load a sample MNI152 brain CT by default for demo purposes
+  window.nv.loadVolumes([{
+    url: "https://niivue.github.io/niivue/images/mni152.nii.gz",
+    name: "Sample_Scan.nii.gz"
+  }]);
   
   document.getElementById('fusion-ct-upload').addEventListener('change', function(e) {
     if (e.target.files.length > 0) {
