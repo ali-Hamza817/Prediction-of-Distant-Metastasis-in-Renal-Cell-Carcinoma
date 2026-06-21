@@ -18,7 +18,7 @@
 
 ---
 
-![RenoFusion Architecture](assets/renofusion_banner.png)
+![ROC Curves](results/figures_for_research_paper/Fig1_ROC_Curves.png)
 
 ## 🛑 1. Problem Statement
 
@@ -81,11 +81,12 @@ By transferring the SEER model to TCGA, we effectively inject the statistical we
 - **Implementation:** Pre-operative NIfTI DICOMs are instantly processed by the MONAI 3D Segmenter or TotalSegmentator fallback.
 
 ### 🧩 Decision-Level Late Fusion (The Weights)
-Four fusion strategies were tested. The final deployed framework uses **Fusion B (F2-Weighted Objective Function)**.
-Because missing a metastasis is clinically fatal, the F2-Score penalizes False Negatives 4x more than False Positives. The hyperparameter grid search mathematically assigned the optimal fusion weights:
-* **Clinical: 0.65** (The Anchor - Largest Dataset)
-* **Genomic: 0.25** (The Modulator - Molecular tie-breaker)
-* **Imaging: 0.10** (To prevent high variance from the smallest dataset)
+In order to synthesize the disparate outputs from the three base models, four distinct decision-level fusion strategies were formulated and tested on the 126-patient alignment cohort:
+
+1. **Fusion A (Simple Average):** A baseline mathematical approach where the risk probabilities from the Clinical, Genomic, and Imaging models are given equal voting power and simply averaged `(P1 + P2 + P3) / 3`.
+2. **Fusion B (F2-Weighted Objective Function):** The final deployed framework. Because missing a metastasis is clinically fatal, the F2-Score penalizes False Negatives 4x more than False Positives. The hyperparameter grid search mathematically assigned optimal fusion weights proportional to the statistical power of their training datasets: **Clinical 0.65** (The Anchor), **Genomic 0.25** (The Modulator), and **Imaging 0.10** (Variance Control).
+3. **Fusion C (Stacking Meta-Learner):** An algorithmic ensemble technique where a secondary machine learning model (Logistic Regression with balanced class weights) is trained dynamically on the output probabilities of the three base models using 5-Fold Stratified Cross-Validation.
+4. **Fusion D (Cascade Max Pooling):** An ultra-conservative clinical strategy that takes the *maximum* predicted risk probability across all three models. This ensures that if any single modality detects high risk (e.g., a massive genomic mutation despite a small physical tumour), the patient is instantly flagged for review.
 
 ---
 
