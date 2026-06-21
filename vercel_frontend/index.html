@@ -1559,9 +1559,9 @@
   <p>Running AI inference…</p>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script type="module">
-  import { Niivue } from "https://unpkg.com/@niivue/niivue@0.44.1/dist/niivue.es.js";
-  window.nv = new Niivue({ backColor: [0, 0, 0, 1] });
+<script src="niivue.umd.js"></script>
+<script>
+  window.nv = new niivue.Niivue({ backColor: [0, 0, 0, 1] });
   window.nv.attachTo("gl");
   
   // Load a sample synthetic CT by default for demo purposes
