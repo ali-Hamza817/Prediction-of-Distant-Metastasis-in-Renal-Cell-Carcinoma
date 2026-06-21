@@ -903,24 +903,35 @@
       </div>
     </div>
 
-    <div class="fusion-tabs">
-      <button id="ftab-clinical" class="ftab active" onclick="activeFusionTab('f-clinical', event)">🏥 Clinical</button>
-      <button id="ftab-genomic" class="ftab" onclick="activeFusionTab('f-genomic', event)">🧬 Genomic</button>
-      <button id="ftab-imaging" class="ftab" onclick="activeFusionTab('f-imaging', event)">☢️ Imaging</button>
-    </div>
+    <div class="fusion-split-layout">
+      <div class="fusion-sidebar">
+        <div class="fusion-tabs" style="display:flex; flex-direction:column; gap:8px; margin-bottom:20px;">
+          <button id="ftab-clinical" class="ftab active" onclick="activeFusionTab('f-clinical', event)" style="text-align:left; padding:12px;">🏥 Clinical</button>
+          <button id="ftab-genomic" class="ftab" onclick="activeFusionTab('f-genomic', event)" style="text-align:left; padding:12px;">🧬 Genomic</button>
+          <button id="ftab-imaging" class="ftab" onclick="activeFusionTab('f-imaging', event)" style="text-align:left; padding:12px;">☢️ Imaging</button>
+        </div>
 
-    <div style="display:flex; gap:20px; justify-content:center; margin-bottom:20px; background:var(--bg3); padding:16px; border-radius:var(--radius); border:1px solid var(--border);">
-      <div style="font-size:14px; color:var(--text2); font-weight:600; margin-right:10px;">Select Available Data:</div>
-      <label style="cursor:pointer; display:flex; align-items:center; gap:6px;">
-        <input type="checkbox" id="enable_clinical" checked style="accent-color:var(--accent);" onchange="toggleModalityTab('clinical')"> 🏥 Clinical
-      </label>
-      <label style="cursor:pointer; display:flex; align-items:center; gap:6px;">
-        <input type="checkbox" id="enable_genomic" checked style="accent-color:var(--accent);" onchange="toggleModalityTab('genomic')"> 🧬 Genomic
-      </label>
-      <label style="cursor:pointer; display:flex; align-items:center; gap:6px;">
-        <input type="checkbox" id="enable_imaging" checked style="accent-color:var(--accent);" onchange="toggleModalityTab('imaging')"> ☢️ Imaging
-      </label>
-    </div>
+        <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:20px; background:var(--bg3); padding:16px; border-radius:var(--radius); border:1px solid var(--border);">
+          <div style="font-size:14px; color:var(--text2); font-weight:600;">Select Available Data:</div>
+          <label style="cursor:pointer; display:flex; align-items:center; gap:6px;">
+            <input type="checkbox" id="enable_clinical" checked style="accent-color:var(--accent);" onchange="toggleModalityTab('clinical')"> 🏥 Clinical
+          </label>
+          <label style="cursor:pointer; display:flex; align-items:center; gap:6px;">
+            <input type="checkbox" id="enable_genomic" checked style="accent-color:var(--accent);" onchange="toggleModalityTab('genomic')"> 🧬 Genomic
+          </label>
+          <label style="cursor:pointer; display:flex; align-items:center; gap:6px;">
+            <input type="checkbox" id="enable_imaging" checked style="accent-color:var(--accent);" onchange="toggleModalityTab('imaging')"> ☢️ Imaging
+          </label>
+        </div>
+
+        <button class="btn-predict btn-gold" onclick="runFusion()" style="width:100%; margin-bottom:10px;">
+          <span class="btn-icon">🔮</span> Predict Metastasis
+        </button>
+        <button class="btn-demo" onclick="fillFusionDemo()" style="width:100%; margin-bottom:10px;">Load Real Patient</button>
+        <button class="btn-demo" style="border: 1px solid var(--error); color: var(--error); width:100%;" onclick="clearFusionResults()">🗑️ Clear Results</button>
+      </div>
+
+      <div class="fusion-content">
 
     <!-- Fusion: Clinical -->
     <div id="f-clinical" class="f-panel">
@@ -1229,19 +1240,27 @@
     <!-- Fusion: Imaging -->
     <div id="f-imaging" class="f-panel hidden">
       <div class="card full-card" style="margin-bottom: 20px; border: 1px solid var(--accent); background: rgba(0, 240, 255, 0.05); padding: 20px;">
-        <div class="f-upload-zone" style="text-align: center;">
-              <h3 style="color:var(--accent); margin-bottom: 10px;">🤖 2-Stage AI Imaging Pipeline</h3>
-              <p style="font-size:13px; color:var(--text3); margin-bottom:10px;">Upload a raw 3D CT scan (.nii or .nii.gz).</p>
-              <ul style="text-align: left; max-width: 400px; margin: 0 auto 15px auto; font-size: 0.9em; color: var(--text2);">
-                <li><strong>Stage 1 (Validator):</strong> EfficientNet-B0 verifies the image is a Kidney CT.</li>
-                <li><strong>Stage 2 (Segmenter):</strong> AI automatically segments the tumour and extracts 49 PyRadiomics features.</li>
-              </ul>
-              <div style="display:flex; gap:12px; align-items:center; justify-content: center;">
-                <input type="file" id="fusion-ct-upload" accept=".nii,.nii.gz" style="padding:8px; background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); color:var(--text);" />
-                <button class="btn btn-primary" onclick="uploadCTForAutoSegment()" style="white-space:nowrap;">Run AI Pipeline</button>
-              </div>
+        <div class="imaging-split-layout">
+          <!-- Left side: Upload -->
+          <div class="f-upload-zone" style="text-align: center; border: none; padding: 0;">
+                <h3 style="color:var(--accent); margin-bottom: 10px;">🤖 2-Stage AI Imaging Pipeline</h3>
+                <p style="font-size:13px; color:var(--text3); margin-bottom:10px;">Upload a raw 3D CT scan (.nii or .nii.gz).</p>
+                <ul style="text-align: left; margin: 0 auto 15px auto; font-size: 0.9em; color: var(--text2); padding-left: 20px;">
+                  <li><strong>Stage 1 (Validator):</strong> EfficientNet-B0 verifies the image is a Kidney CT.</li>
+                  <li><strong>Stage 2 (Segmenter):</strong> AI automatically segments the tumour and extracts 49 PyRadiomics features.</li>
+                </ul>
+                <div style="display:flex; flex-direction:column; gap:12px; align-items:center; justify-content: center;">
+                  <input type="file" id="fusion-ct-upload" accept=".nii,.nii.gz" style="padding:8px; background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); color:var(--text); width: 100%;" />
+                  <button class="btn btn-primary" onclick="uploadCTForAutoSegment()" style="white-space:nowrap; width: 100%;">Run AI Pipeline</button>
+                </div>
+                <div id="auto-segment-status" style="margin-top:12px; font-size:13px; color:var(--text2); text-align: center;"></div>
+          </div>
+          
+          <!-- Right side: Niivue Viewer -->
+          <div class="niivue-container">
+            <canvas id="gl" height="300" width="400"></canvas>
+          </div>
         </div>
-        <div id="auto-segment-status" style="margin-top:12px; font-size:13px; color:var(--text2); text-align: center;"></div>
       </div>
 
       <div class="card full-card">
@@ -1497,13 +1516,8 @@
       </div>
     </div>
 
-    <div class="predict-bar">
-      <button class="btn-predict btn-gold" onclick="runFusion()">
-        <span class="btn-icon">🔮</span> Run 3-Modality Fusion Prediction
-      </button>
-      <button class="btn-demo" onclick="fillFusionDemo()">Load Real Patient (RCC-SEER-00004)</button>
-      <button class="btn-demo" style="border: 1px solid var(--error); color: var(--error);" onclick="clearFusionResults()">🗑️ Clear Results</button>
-    </div>
+      </div> <!-- End fusion-content -->
+    </div> <!-- End fusion-split-layout -->
 
     <div id="result-fusion" class="result-panel hidden"></div>
   </section>
@@ -1544,7 +1558,19 @@
   <div class="spinner"></div>
   <p>Running AI inference…</p>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module">
+  import { Niivue } from "https://niivue.github.io/niivue/features/niivue.es.js";
+  window.nv = new Niivue({ backColor: [0, 0, 0, 1] });
+  window.nv.attachTo("gl");
+  
+  document.getElementById('fusion-ct-upload').addEventListener('change', function(e) {
+    if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+      window.nv.loadFromFile(file);
+    }
+  });
+</script>
 <script src="app.js"></script>
 </body>
 </html>

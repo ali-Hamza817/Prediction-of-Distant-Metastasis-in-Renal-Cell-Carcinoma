@@ -893,3 +893,60 @@ body {
 .disclaimer-box p {
   margin: 0;
 }
+
+/* Fusion Split Layout */
+.fusion-split-layout {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .fusion-split-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fusion-sidebar {
+  position: sticky;
+  top: 20px;
+}
+
+.fusion-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Niivue 3D Viewer Layout */
+.imaging-split-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .imaging-split-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.niivue-container {
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--accent);
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(0, 240, 255, 0.2);
+}
+
+.niivue-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  outline: none;
+}
