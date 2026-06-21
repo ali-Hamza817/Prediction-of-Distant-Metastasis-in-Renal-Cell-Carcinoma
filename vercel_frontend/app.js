@@ -430,6 +430,14 @@ async function uploadCTForAutoSegment() {
   }
 }
 
+function clearFusionResults() {
+  const el = document.getElementById('result-fusion');
+  if (el) {
+    el.innerHTML = '';
+    el.classList.add('hidden');
+  }
+}
+
 async function runFusion() {
   const useClin = document.getElementById('enable_clinical').checked;
   const useGeno = document.getElementById('enable_genomic').checked;
