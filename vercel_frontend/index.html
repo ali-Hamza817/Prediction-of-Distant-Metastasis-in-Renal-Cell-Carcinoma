@@ -904,21 +904,21 @@
     </div>
 
     <div class="fusion-tabs">
-      <button class="ftab active" onclick="activeFusionTab('f-clinical', event)">🏥 Clinical</button>
-      <button class="ftab" onclick="activeFusionTab('f-genomic', event)">🧬 Genomic</button>
-      <button class="ftab" onclick="activeFusionTab('f-imaging', event)">☢️ Imaging</button>
+      <button id="ftab-clinical" class="ftab active" onclick="activeFusionTab('f-clinical', event)">🏥 Clinical</button>
+      <button id="ftab-genomic" class="ftab" onclick="activeFusionTab('f-genomic', event)">🧬 Genomic</button>
+      <button id="ftab-imaging" class="ftab" onclick="activeFusionTab('f-imaging', event)">☢️ Imaging</button>
     </div>
 
     <div style="display:flex; gap:20px; justify-content:center; margin-bottom:20px; background:var(--bg3); padding:16px; border-radius:var(--radius); border:1px solid var(--border);">
       <div style="font-size:14px; color:var(--text2); font-weight:600; margin-right:10px;">Select Available Data:</div>
       <label style="cursor:pointer; display:flex; align-items:center; gap:6px;">
-        <input type="checkbox" id="enable_clinical" checked style="accent-color:var(--accent);"> 🏥 Clinical
+        <input type="checkbox" id="enable_clinical" checked style="accent-color:var(--accent);" onchange="toggleModalityTab('clinical')"> 🏥 Clinical
       </label>
       <label style="cursor:pointer; display:flex; align-items:center; gap:6px;">
-        <input type="checkbox" id="enable_genomic" checked style="accent-color:var(--accent);"> 🧬 Genomic
+        <input type="checkbox" id="enable_genomic" checked style="accent-color:var(--accent);" onchange="toggleModalityTab('genomic')"> 🧬 Genomic
       </label>
       <label style="cursor:pointer; display:flex; align-items:center; gap:6px;">
-        <input type="checkbox" id="enable_imaging" checked style="accent-color:var(--accent);"> ☢️ Imaging
+        <input type="checkbox" id="enable_imaging" checked style="accent-color:var(--accent);" onchange="toggleModalityTab('imaging')"> ☢️ Imaging
       </label>
     </div>
 
@@ -1228,8 +1228,18 @@
 
     <!-- Fusion: Imaging -->
     <div id="f-imaging" class="f-panel hidden">
+      <div class="card full-card" style="margin-bottom: 20px; border: 1px solid var(--accent); background: rgba(0, 240, 255, 0.05);">
+        <p class="card-title" style="color:var(--accent);">🤖 AI Auto-Segmentation (TotalSegmentator)</p>
+        <p style="font-size:13px; color:var(--text3); margin-bottom:16px;">Upload a raw 3D CT scan (.nii or .nii.gz). Our AI will automatically find the kidney, segment the tumour, and extract all 49 PyRadiomics features for you.</p>
+        <div style="display:flex; gap:12px; align-items:center;">
+          <input type="file" id="fusion-ct-upload" accept=".nii,.nii.gz" style="flex:1; padding:8px; background:var(--bg2); border:1px solid var(--border); border-radius:var(--radius); color:var(--text);" />
+          <button class="btn btn-primary" onclick="uploadCTForAutoSegment()" style="white-space:nowrap;">Run Auto-Segmentation</button>
+        </div>
+        <div id="auto-segment-status" style="margin-top:12px; font-size:13px; color:var(--text2);"></div>
+      </div>
+
       <div class="card full-card">
-        <p class="card-title">PyRadiomics Features (49 Shape/Texture Features) — use Demo to auto-fill</p>
+        <p class="card-title">Manual PyRadiomics Features (49 Shape/Texture Features) — use Demo to auto-fill</p>
         <div id="fusion-radiomics-inputs" class="gene-grid">
           
           <div class="gene-item">

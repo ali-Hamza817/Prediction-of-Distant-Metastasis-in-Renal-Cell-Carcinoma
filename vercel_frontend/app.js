@@ -384,6 +384,52 @@ function fillFusionDemo() {
   });
 }
 
+async function uploadCTForAutoSegment() {
+  const fileInput = document.getElementById('fusion-ct-upload');
+  const statusDiv = document.getElementById('auto-segment-status');
+  
+  if (!fileInput.files.length) {
+    alert("Please select a .nii or .nii.gz file first.");
+    return;
+  }
+
+  const file = fileInput.files[0];
+  const formData = new FormData();
+  formData.append('image', file);
+
+  statusDiv.innerHTML = `<span style="color:var(--gold);">⏳ Uploading CT and running TotalSegmentator AI... This may take a few minutes depending on server load. Please wait...</span>`;
+  showLoading();
+
+  try {
+    const res = await fetch(API_BASE_URL + '/upload/radiomics/auto-segment', {
+      method: 'POST',
+      body: formData
+    });
+    
+    const data = await res.json();
+    hideLoading();
+
+    if (data.error) {
+      statusDiv.innerHTML = `<span style="color:var(--error);">❌ Error: ${data.error}</span>`;
+      return;
+    }
+
+    // Auto-fill the manual inputs
+    if (data.feature_values) {
+      for (const [feat, val] of Object.entries(data.feature_values)) {
+        const input = document.getElementById('fr_' + feat);
+        if (input) input.value = val;
+      }
+    }
+
+    statusDiv.innerHTML = `<span style="color:var(--success);">✅ Success! ${data.note} The form below has been auto-filled. You can now run the fusion.</span>`;
+    
+  } catch(e) {
+    hideLoading();
+    statusDiv.innerHTML = `<span style="color:var(--error);">❌ Network Error: ${e.message}</span>`;
+  }
+}
+
 async function runFusion() {
   const useClin = document.getElementById('enable_clinical').checked;
   const useGeno = document.getElementById('enable_genomic').checked;

@@ -363,5 +363,94 @@ def upload_radiomics_nifti():
         return jsonify({"error": f"NIfTI processing failed: {str(e)}\n{traceback.format_exc()}"}), 500
 
 
+@app.route("/upload/radiomics/auto-segment", methods=["POST"])
+def upload_radiomics_auto_segment():
+    """
+    Accept ONLY a 3D CT scan NIfTI file (.nii or .nii.gz).
+    1. Runs TotalSegmentator to automatically detect and segment the kidney tumour.
+    2. Runs PyRadiomics on the auto-generated mask to extract features.
+    3. Runs Model 3 prediction.
+    """
+    import subprocess
+    try:
+        if 'image' not in request.files:
+            return jsonify({"error": "The 'image' (.nii.gz CT scan) file is required"}), 400
+
+        image_file = request.files['image']
+
+        # Save to temp directory
+        tmp_dir = tempfile.mkdtemp()
+        img_path  = os.path.join(tmp_dir, 'image.nii.gz')
+        image_file.save(img_path)
+
+        # 1. Run TotalSegmentator for kidney_tumor
+        try:
+            subprocess.run([
+                "TotalSegmentator", 
+                "-i", img_path, 
+                "-o", tmp_dir, 
+                "-rs", "kidney_tumor", 
+                "--fast"
+            ], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        except subprocess.CalledProcessError as e:
+            return jsonify({"error": f"TotalSegmentator failed: {e.stderr.decode()}"}), 500
+
+        mask_path = os.path.join(tmp_dir, 'kidney_tumor.nii.gz')
+        if not os.path.exists(mask_path):
+            return jsonify({"error": "Auto-segmentation completed, but no kidney tumour was found in this scan."}), 400
+
+        # 2. Run PyRadiomics
+        from radiomics import featureextractor
+        params = {
+            'imageType': {'Original': {}},
+            'featureClass': {
+                'shape': None,
+                'firstorder': None,
+                'glcm': None,
+                'glrlm': None,
+                'glszm': None,
+            },
+            'setting': {
+                'binWidth': 25,
+                'resampledPixelSpacing': None,
+                'interpolator': 'sitkBSpline',
+                'verbose': False,
+            }
+        }
+        extractor = featureextractor.RadiomicsFeatureExtractor(**params)
+        result = extractor.execute(img_path, mask_path)
+
+        # Convert to dict of feature_name -> value
+        feat_vals = {}
+        for key, val in result.items():
+            if key.startswith('original_'):
+                try:
+                    feat_vals[key] = float(val)
+                except:
+                    pass
+
+        # Cleanup temp files
+        import shutil
+        shutil.rmtree(tmp_dir, ignore_errors=True)
+
+        found   = [f for f in M3_FEATURES if f in feat_vals]
+        missing = [f for f in M3_FEATURES if f not in feat_vals]
+        data    = {feat: feat_vals.get(feat, 0.0) for feat in M3_FEATURES}
+        prob    = predict_model3(data)
+
+        return jsonify({
+            "probability":        round(prob, 4),
+            "risk":               risk_label(prob),
+            "risk_class":         risk_class(prob),
+            "features_extracted": len(feat_vals),
+            "features_used":      len(found),
+            "missing_features":   missing[:10],
+            "feature_values":     {feat: round(v,6) for feat, v in data.items()},
+            "note":               f"TotalSegmentator successfully auto-segmented tumour. PyRadiomics extracted {len(feat_vals)} features. {len(found)}/{len(M3_FEATURES)} required features found."
+        })
+    except Exception as e:
+        return jsonify({"error": f"Auto-segmentation pipeline failed: {str(e)}\n{traceback.format_exc()}"}), 500
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=5050)
