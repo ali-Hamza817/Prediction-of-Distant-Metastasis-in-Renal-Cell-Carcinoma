@@ -1,4 +1,4 @@
-const API_BASE_URL = "/api";
+const API_BASE_URL = "https://editing-lions-powers-thou.trycloudflare.com";
 
 /* ── Theme Toggle ── */
 function toggleTheme() {
@@ -121,28 +121,19 @@ async function runClinical() {
   }
 }
 
-function siteRiskArrow(p) {
-  if (p >= 0.85) return '<span style="color:#ef4444">▲▲ Very High</span>';
-  if (p >= 0.70) return '<span style="color:#f97316">▲ Elevated</span>';
-  if (p >= 0.50) return '<span style="color:#eab308">→ Moderate</span>';
-  return '<span style="color:#22c55e">▼ Lower</span>';
-}
-
+// removed siteRiskArrow function
 function renderClinicalResult(d) {
   const el = document.getElementById('result-clinical');
   el.classList.remove('hidden');
 
-  const siteEmoji  = { lung: '🫁', bone: '🦴', liver: '🫀', brain: '🧠' };
+  const siteEmoji  = { lung: '🫁', bone: '🦴', liver: '🩸', brain: '🧠' };
   const siteProbMap = { lung: d.lung, bone: d.bone, liver: d.liver, brain: d.brain };
 
-  // Relative risk: rank within [0,1] but show as index not absolute probability
-  // The site models are F2-loss trained — raw sigmoid is uncalibrated; display as risk index
   let sitesHTML = Object.entries(siteProbMap).map(([site, p]) => `
     <div class="site-card">
       <div class="site-icon">${siteEmoji[site]}</div>
       <div class="site-name">${site.charAt(0).toUpperCase()+site.slice(1)}</div>
-      <div class="site-prob ${riskCls(p)}">${siteRiskArrow(p)}</div>
-      <div style="font-size:11px;color:var(--text3);margin-top:4px;">Index: ${pctLabel(p)}</div>
+      <div class="site-prob ${riskCls(p)}" style="font-size:20px; font-weight:800; margin-top:8px;">${pctLabel(p)}</div>
     </div>`).join('');
 
   el.innerHTML = `
@@ -476,12 +467,11 @@ function renderFusionResult(d) {
         </div>
       </div>
       <div class="site-grid">
-        ${[['🫁','Lung',d.model1_lung],['🦴','Bone',d.model1_bone],['🫀','Liver',d.model1_liver],['🧠','Brain',d.model1_brain]].map(([icon,name,p])=>`
+        ${[['🫁','Lung',d.model1_lung],['🦴','Bone',d.model1_bone],['🩸','Liver',d.model1_liver],['🧠','Brain',d.model1_brain]].map(([icon,name,p])=>`
           <div class="site-card">
             <div class="site-icon">${icon}</div>
             <div class="site-name">${name}</div>
-            <div class="site-prob ${riskCls(p)}">${siteRiskArrow(p)}</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:4px;">Index: ${pctLabel(p)}</div>
+            <div class="site-prob ${riskCls(p)}" style="font-size:20px; font-weight:800; margin-top:8px;">${pctLabel(p)}</div>
           </div>`).join('')}
       </div>
     </div>
