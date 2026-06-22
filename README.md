@@ -18,8 +18,6 @@
 
 ---
 
-![ROC Curves](results/figures_for_research_paper/Fig1_ROC_Curves.png)
-
 ## 🛑 1. Problem Statement
 
 Renal Cell Carcinoma (RCC) is the most common type of kidney cancer. Approximately **25–30% of patients present with distant metastasis at initial diagnosis**, and a significant portion of localized cases eventually metastasize. Distant metastasis drastically reduces the 5-year survival rate to below 15%. 
@@ -91,6 +89,8 @@ In order to synthesize the disparate outputs from the three base models, four di
 ---
 
 ## 📊 6. Final Results
+
+![ROC Curves](results/figures_for_research_paper/Fig1_ROC_Curves.png)
 
 ### Base Modality Performance
 
